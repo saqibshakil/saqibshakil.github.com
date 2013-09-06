@@ -5,7 +5,7 @@
     "marionette", 
     "jquery", 
     "underscore", 
-    "text!./templates/main.htm", 
+    "text!./templates/Main.htm", 
     
 ], function (GL, namespace, Backbone, Marionette, $, _, MainTemplate) {
     var app = namespace.app;

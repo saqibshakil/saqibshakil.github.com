@@ -7,7 +7,7 @@
 	"jquery",
 	"underscore",
 
-    "text!./templates/main.htm",
+    "text!./templates/Main.htm",
     
 ],
 
