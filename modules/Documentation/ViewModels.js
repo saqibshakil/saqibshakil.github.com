@@ -1,4 +1,4 @@
-﻿define([
+define([
     "namespace", 
     "backbone", 
     "marionette", 
@@ -7,9 +7,8 @@
     "./Models"
 ], function (namespace, Backbone, Marionette, $, _) {
     var app = namespace.app;
-    app.module("Docs", function (Docs, app, Backbone, Marionette, $, _) {
-        Docs.ViewModels = {
+    app.module("Documentation", function (Documentation, app, Backbone, Marionette, $, _) {
+        Documentation.ViewModels = {
         };
     });
 });
-//@ sourceMappingURL=ViewModels.js.map

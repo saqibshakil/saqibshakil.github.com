@@ -1,0 +1,11 @@
+﻿<section id="modals">
+    <div class="page-header">
+        <h1>Authenticated Modules <small>app.GL.ModuleRouter</small></h1>
+    </div>
+
+    <p>In most applications there is a requirement for a module to only be accesible if the user is authenticated. Else the user is redirected to the login view and directed back to the requested route. implementation of this behavior simply requires you to extend the Router from <strong>app.GL.ModuleRouter</strong> class instead of <strong>Backbone.SubRoute</strong></p>
+
+    <h3>Changes</h3>
+    <p>The only mentionable change is that instead of <strong>before</strong> being called before each route <strong>onBefore</strong> is called</p>
+
+</section>

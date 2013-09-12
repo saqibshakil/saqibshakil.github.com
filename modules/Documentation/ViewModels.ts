@@ -1,4 +1,4 @@
-﻿declare var define:any;
+﻿declare var define: any;
 define([
 // Libs
 	"namespace",
@@ -7,6 +7,7 @@ define([
 	"jquery",
 	"underscore",
     
+    "./Models"
 ],
 
 function (namespace, Backbone, Marionette, $, _) {
@@ -15,10 +16,12 @@ function (namespace, Backbone, Marionette, $, _) {
     var app = namespace.app;
 
     // Create a module to hide our private implementation details 
-    app.module("Docs", function (Docs, app, Backbone, Marionette, $, _, namespace, contentTemplate, todoItemTemplate, TodosModule) {
-        Docs.Models = {};
+    app.module("Documentation", function (Documentation, app, Backbone, Marionette, $, _) {
+        Documentation.ViewModels = {};
 
-        
+       
+
+
 
 
     });

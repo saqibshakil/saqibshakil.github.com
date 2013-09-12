@@ -1,0 +1,238 @@
+﻿<section id="modals">
+    <style>
+        .css-treeview ul,
+        .css-treeview li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .css-treeview input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .css-treeview {
+            font: normal 11px "Segoe UI", Arial, Sans-serif;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+            .css-treeview a {
+                color: #00f;
+                text-decoration: none;
+            }
+
+                .css-treeview a:hover {
+                    text-decoration: underline;
+                }
+
+            .css-treeview input + label + ul {
+                margin: 0 0 0 22px;
+            }
+
+            .css-treeview input ~ ul {
+                display: none;
+            }
+
+            .css-treeview label,
+            .css-treeview label::before {
+                cursor: pointer;
+            }
+
+            .css-treeview input:disabled + label {
+                cursor: default;
+                opacity: .6;
+            }
+
+            .css-treeview input:checked:not(:disabled) ~ ul {
+                display: block;
+            }
+
+            .css-treeview label,
+            .css-treeview label::before {
+                background: url("img/icons.png") no-repeat;
+            }
+
+                .css-treeview label,
+                .css-treeview a,
+                .css-treeview label::before {
+                    display: inline-block;
+                    height: 16px;
+                    line-height: 16px;
+                    vertical-align: middle;
+                }
+
+            .css-treeview label {
+                background-position: 18px 0;
+            }
+
+                .css-treeview label::before {
+                    content: "";
+                    width: 16px;
+                    margin: 0 22px 0 0;
+                    vertical-align: middle;
+                    background-position: 0 -32px;
+                }
+
+            .css-treeview input:checked + label::before {
+                background-position: 0 -16px;
+            }
+
+        /* webkit adjacent element selector bugfix */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            .css-treeview {
+                -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+            }
+
+            @-webkit-keyframes webkit-adjacent-element-selector-bugfix {
+                from {
+                    padding: 0;
+                }
+
+                to {
+                    padding: 0;
+                }
+            }
+        }
+    </style>
+    <div class="page-header">
+        <h1>Modular Architecture <small>Pluggable Modules</small></h1>
+    </div>
+
+
+    <h2>Folder Structure</h2>
+    <p>The Folder structure of this template is made so that each modules has a seperate folder in the modules root directory as shown below</p>
+    <div class="css-treeview">
+        <ul>
+            <li>
+                <input type="checkbox" id="Checkbox5" /><label for="item-0">css</label>
+                <ul>
+                    <li><a>bootstrap-responsive.css</a></li>
+                    <li><a>bootstrap.css</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <input type="checkbox" id="Checkbox3" /><label for="item-1">img</label>
+                <ul>
+                    <li><a>add.png</a></li>
+                    <li><a>bg.png</a></li>
+                    <li><a>xyz.png</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <input type="checkbox" id="Checkbox1" /><label for="item-2">js</label>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="Checkbox2" /><label for="item-2-0">lib</label>
+                        <ul>
+                            <li><a>Multiple External Resources</a></li>
+                            <li><a>gl.js</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="Checkbox4" /><label for="item-2-1" title="Contain the lonely system module">system</label>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="Checkbox6" /><label for="item-2-1-0">templates</label>
+                                <ul>
+                                    <li><a>MainPageTemplate.htm</a></li>
+                                </ul>
+                            </li>
+                            <li><a>Main.js</a></li>
+                            <li><a>Router.js</a></li>
+                            <li><a>View.js</a></li>
+                            <li><a>Model.js</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a title="Contains Initialization logic for the app">main.ts</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <input type="checkbox" id="item-0" checked="checked" /><label for="item-3" title="Contains all the modules which can be referenced by the system by using their named hashtag for instance #GMC in the url will reference the routes of module placed in GMC folder">modules</label>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="item-0-0" /><label for="item-3-0">Connect</label>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="Checkbox7" /><label for="item-3-0-0">templates</label>
+                                <ul>
+                                    <li><a>Template.htm</a></li>
+                                </ul>
+                            </li>
+                            <li><a title="Contains initialization logic for the module">Main.ts</a></li>
+                            <li><a title="Contains all the Models used by this module">Models</a></li>
+                            <li><a title="Contains all the Views used by this module">Views.ts</a></li>
+                            <li><a title="Contains Sub Routes handled by this module">Router.ts</a></li>
+                            <li><a title="Contains View Models if MVVM is employed by this module">ViewModels.ts</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="Checkbox8" /><label for="item-3-1">GMC</label>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="Checkbox9" /><label for="item-3-1-0">templates</label>
+                                <ul>
+                                    <li><a>Template.htm</a></li>
+                                </ul>
+                            </li>
+                            <li><a title="Contains initialization logic for the module">Main.ts</a></li>
+                            <li><a title="Contains all the Models used by this module">Models</a></li>
+                            <li><a title="Contains all the Views used by this module">Views.ts</a></li>
+                            <li><a title="Contains Sub Routes handled by this module">Router.ts</a></li>
+                            <li><a title="Contains View Models if MVVM is employed by this module">ViewModels.ts</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="Checkbox10" /><label for="item-3-2">Security</label>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="Checkbox11" /><label for="item-3-2-0">templates</label>
+                                <ul>
+                                    <li><a>Template.htm</a></li>
+                                </ul>
+                            </li>
+                            <li><a title="Contains initialization logic for the module">Main.ts</a></li>
+                            <li><a title="Contains all the Models used by this module">Models</a></li>
+                            <li><a title="Contains all the Views used by this module">Views.ts</a></li>
+                            <li><a title="Contains Sub Routes handled by this module">Router.ts</a></li>
+                            <li><a title="Contains View Models if MVVM is employed by this module">ViewModels.ts</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <br />
+        <p>Hover over the folder or files to get info on the usage of these files in the tooltip. Below I will explain the usage of individual files placed in the module folder</p>
+
+        <h3>Modules Folder</h3>
+        <p>This folder contains individual modules. Ideally each module would be contained in its own folder.</p>
+
+        <h3>GMC/Connect Folder</h3>
+        <p>These individual folders are just samples with no worthy implementation. But serves as a bassis for future development.</p>
+        <h4>Main.ts</h4>
+        <p>Primarily this file would contain the initialization logic of the modules and would reference other dependencies of the modules. Ideally a module should have a minimal number of files. but the architecture currently provides for any number of files. 
+            In production a grunt or brunch type build system could be utilized to build a singular js file per module where as the development could be done in any number of seperate files.
+        </p>
+
+        <h4>Models.ts</h4>
+        <p>Contains any and all Models used by the current module.</p>
+
+        <h4>Views.ts</h4>
+        <p>Contains any number of Views used by the module. Templates are also referenced by this file. Currently I have referenced each template individually but in production templates should be merged in to singular files and referenced thereafter.</p>
+        
+        <h4>Router.ts</h4>
+        <p>This is one of the most crucial part of the module as it contains the implementation of the router. Whenever a modules is requested by the user by using #ABC\* on the url. The module must have a Router name class in its namespace because this is used to bind the subrouter to the modules url.
+        </p>
+        
+        <h4>ViewModels.ts</h4>
+        <p>This file contains the viewmodels used by the module view models are a part of the MVVM model. MVVM is costly and resource intensive so I opt to use it only when there is a requirement for 2 way binding and some business involved for handling the DOM More on MVVM comming soon.
+        </p>
+</section>

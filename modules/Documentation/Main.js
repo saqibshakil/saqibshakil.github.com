@@ -1,4 +1,4 @@
-﻿define([
+define([
     "namespace", 
     "backbone", 
     "marionette", 
@@ -10,11 +10,10 @@
     "./Views"
 ], function (namespace, Backbone, Marionette, $, _) {
     var app = namespace.app;
-    app.module("Docs", function (Docs, app, Backbone, Marionette, $, _, namespace) {
+    app.module("Documentation", function (Documentation, app, Backbone, Marionette, $, _, namespace) {
         app.addInitializer(function (options) {
         });
     });
-    app.Docs.startWithParent = false;
-    return app.Docs;
+    app.Documentation.startWithParent = false;
+    return app.Documentation;
 });
-//@ sourceMappingURL=Main.js.map

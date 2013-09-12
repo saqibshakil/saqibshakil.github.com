@@ -1,14 +1,12 @@
 ﻿declare var define:any;
 define([
+// Libs
 	"namespace",
 	"backbone",
     "marionette",
 	"jquery",
 	"underscore",
-    "./Router",
-    "./Models",
-    "./ViewModels",
-    "./Views"
+    
 ],
 
 function (namespace, Backbone, Marionette, $, _) {
@@ -17,16 +15,12 @@ function (namespace, Backbone, Marionette, $, _) {
     var app = namespace.app;
 
     // Create a module to hide our private implementation details 
-    app.module("Docs", function (Docs, app, Backbone, Marionette, $, _, namespace) {
+    app.module("Documentation", function (Documentation, app, Backbone, Marionette, $, _, namespace, contentTemplate, todoItemTemplate, TodosModule) {
+        Documentation.Models = {};
 
-        app.addInitializer(function (options) {
-
-        });
+        
 
 
     });
-    app.Docs.startWithParent = false;
-    
-    return app.Docs;
+
 });
-   
