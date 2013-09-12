@@ -28,7 +28,7 @@ function (namespace, GL, Backbone, Marionette, $, _) {
             }
         };
 
-        Connect.Router = Backbone.SubRoute.extend(
+        Connect.Router =  app.GL.ModuleRouter.extend(
         $.extend(true,
         {
 

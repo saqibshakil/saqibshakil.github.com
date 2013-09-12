@@ -1,4 +1,4 @@
-﻿define([
+define([
     "namespace", 
     "gl", 
     "backbone", 
@@ -16,7 +16,7 @@
                 app.content.show(view);
             }
         };
-        Connect.Router = Backbone.SubRoute.extend($.extend(true, {
+        Connect.Router = app.GL.ModuleRouter.extend($.extend(true, {
             initialize: function (options) {
                 this.options = options;
             },
@@ -34,4 +34,3 @@
         }, Connect.Controller));
     });
 });
-//@ sourceMappingURL=Router.js.map
