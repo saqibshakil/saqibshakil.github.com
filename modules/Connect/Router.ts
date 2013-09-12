@@ -1,4 +1,4 @@
-﻿declare var define: any;
+﻿declare var define: any; 
 define([
 // Libs
 	"namespace",
@@ -28,7 +28,7 @@ function (namespace, GL, Backbone, Marionette, $, _) {
             }
         };
 
-        Connect.Router = app.GL.ModuleRouter.extend(
+        Connect.Router = Backbone.SubRoute.extend(
         $.extend(true,
         {
 
@@ -43,7 +43,7 @@ function (namespace, GL, Backbone, Marionette, $, _) {
 
             },
 
-            beforeRoute: function (route) {
+            before: function (route) {
                 //this.initializeLayout();
                 return true;
             },

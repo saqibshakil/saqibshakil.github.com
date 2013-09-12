@@ -16,7 +16,7 @@
                 app.content.show(view);
             }
         };
-        Connect.Router = app.GL.ModuleRouter.extend($.extend(true, {
+        Connect.Router = Backbone.SubRoute.extend($.extend(true, {
             initialize: function (options) {
                 this.options = options;
             },
@@ -25,7 +25,7 @@
                 "home": "home",
                 "*else": "gotoHome"
             },
-            beforeRoute: function (route) {
+            before: function (route) {
                 return true;
             },
             gotoHome: function (route) {
