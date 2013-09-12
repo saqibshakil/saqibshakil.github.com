@@ -338,5 +338,6 @@ declare module Backbone {
     function noConflict(): any;
 
     function setDomLibrary(jQueryNew);
+
 }
 

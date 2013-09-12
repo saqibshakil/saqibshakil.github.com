@@ -163,6 +163,10 @@
     <Content Include="modules\Security\ViewModels.js" />
     <Content Include="modules\Security\Views.js" />
     <Content Include="typings\backbone.d.ts" />
+    <TypeScriptCompile Include="typings\BakBone.d.ts" />
+    <Content Include="typings\BakBone.d.js">
+      <DependentUpon>BakBone.d.ts</DependentUpon>
+    </Content>
     <Content Include="typings\jquery.d.ts" />
     <Content Include="typings\marionette.d.ts" />
     <Content Include="typings\require.d.ts" />

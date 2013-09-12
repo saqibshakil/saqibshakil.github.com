@@ -12,15 +12,20 @@
     app.module("Docs", function (Docs, app, Backbone, Marionette, $, _) {
         Docs.Controller = {
             part: function () {
+                var view = new Docs.Views.PartView();
+                debugger;
+
+                this.LayoutDelay(Docs.Layout, Docs.Layout.content, view);
+            },
+            LayoutDelay: function (Layout, Region, View) {
                 var func = function () {
-                    var view = new Docs.Views.PartView();
-                    Docs.Layout.content.show(view);
+                    if(Layout.isClosed === undefined) {
+                        setTimeout(func, 50);
+                    } else {
+                        Region.show(View);
+                    }
                 };
-                if(Docs.Layout.isClosed === undefined) {
-                    setTimeout(func, 500);
-                } else {
-                    func();
-                }
+                func();
             }
         };
         Docs.Router = Backbone.SubRoute.extend($.extend(true, {
