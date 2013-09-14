@@ -1,0 +1,1415 @@
+﻿<section id="modals">
+    <div class="page-header">
+        <h1>MVVM <small>KnockBack and KnockOut</small></h1>
+    </div>
+
+    <p>MVVM (Model View ViewModel) is an architectural pattern based on MVC and MVP, which attempts to more clearly separate the development of user-interfaces (UI) from that of the business logic and behaviour in an application. To this end, many implementations of this pattern make use of declarative data bindings to allow a separation of work on Views from other layers.</p>
+    <p>This facilitates UI and development work occurring almost simultaneously within the same codebase. UI developers write bindings to the ViewModel within their document markup (HTML), where the Model and ViewModel are maintained by developers working on the logic for the application. </p>
+
+    <h3>The View and the ViewModel</h3>
+    <p>
+        Views and ViewModels communicate using data-bindings and events. As we saw in our initial ViewModel example, the ViewModel doesn’t just expose Model attributes but also access to other methods and features such as validation.
+    </p>
+    <p>
+        Our Views handle their own user-interface events, mapping them to the ViewModel as necessary. Models and attributes on the ViewModel are syncronized and updated via two-way data-binding.
+    </p>
+    <p>
+        Triggers (data-triggers) also allow us to further react to changes in the state of our Model attributes.
+    </p>
+    <h3>The ViewModel and the Model</h3>
+    <p>
+        Whilst it may appear the ViewModel is completely responsible for the Model in MVVM, there are some subtleties with this relationship worth noting. The ViewModel can expose a Model or Model attributes for the purposes of data-binding and can also contain interfaces for fetching and manipulating properties exposed in the view.
+    </p>
+    <h2>Pros and Cons</h2>
+    <p>
+        You now hopefully have a better appreciation for what MVVM is and how it works. Let’s now review the advantages and disadvantages of employing the pattern:
+    </p>
+    <h3>Advantages</h3>
+    <ul>
+        <li>MVVM Facilitates easier parallel development of a UI and the building blocks that power it</li>
+        <li>Abstracts the View and thus reduces the quantity of business logic (or glue) required in the code behind it</li>
+        <li>The ViewModel can be easier to unit test than event-driven code</li>
+        <li>The ViewModel (being more Model than View) can be tested without concerns of UI automation and interaction</li>
+    </ul>
+    <h3>Disadvantages</h3>
+    <ul>
+        <li>For simpler UIs, MVVM can be overkill</li>
+        <li>Whilst data-bindings can be declarative and nice to work with, they can be harder to debug than imperative code where we simply set breakpoints</li>
+        <li>Data-bindings in non-trivial applications can create a lot of book-keeping. You also don’t want to end up in a situation where bindings are heavier than the objects being bound to</li>
+        <li>In larger applications, it can be more difficult to design the ViewModel up front to get the necessary amount of generalization</li>
+    </ul>
+    <p>The above explaination are an extract from <a href="http://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/" target="_blank">Addy Osmani's Blog</a></p>
+
+    <h1>How to apply MVVM here</h1>
+    <p>I am a real fan of KnockoutJS and do find that it help me concentrate on doing more productive work and less wasting time writing DOM manipulation code. Therefore I employed KnockBack to bridge the gap between BackBone Models and Knockout ViewModels</p>
+    <h2>ViewModel Code</h2>
+    <div >
+<style>
+    .CodeMirror {
+        height: 300px;
+        font-family: monospace;
+    }
+
+    .CodeMirror-scroll {
+        overflow: auto;
+    }
+
+    .CodeMirror-lines {
+        padding-top: 4px;
+        padding-right: 0px;
+        padding-bottom: 4px;
+        padding-left: 0px;
+    }
+
+    .CodeMirror pre {
+        padding-top: 0px;
+        padding-right: 4px;
+        padding-bottom: 0px;
+        padding-left: 4px;
+    }
+
+    .CodeMirror-gutters {
+        border-right-color: #ddd;
+        border-right-width: 1px;
+        border-right-style: solid;
+        background-color: rgb(247, 247, 247);
+    }
+
+    .CodeMirror-linenumber {
+        text-align: right;
+        color: #999;
+        padding-top: 0px;
+        padding-right: 3px;
+        padding-bottom: 0px;
+        padding-left: 5px;
+        min-width: 20px;
+    }
+
+    .CodeMirror div.CodeMirror-cursor {
+        border-left-color: black;
+        border-left-width: 1px;
+        border-left-style: solid;
+        z-index: 3;
+    }
+
+    .CodeMirror div.CodeMirror-secondarycursor {
+        border-left-color: silver;
+        border-left-width: 1px;
+        border-left-style: solid;
+    }
+
+    .cm-s-default .cm-keyword {
+        color: #708;
+    }
+
+    .cm-s-default .cm-atom {
+        color: #219;
+    }
+
+    .cm-s-default .cm-def {
+        color: #00f;
+    }
+
+    .cm-s-default .cm-variable {
+        color: black;
+    }
+
+    .cm-s-default .cm-variable-2 {
+        color: #05a;
+    }
+
+    .cm-s-default .cm-property {
+        color: black;
+    }
+
+    .cm-s-default .cm-comment {
+        color: #a50;
+    }
+
+    .cm-s-default .cm-string {
+        color: #a11;
+    }
+
+    .CodeMirror {
+        color: black;
+        line-height: 1;
+        overflow: hidden;
+        position: relative;
+        background-image: none;
+        background-attachment: scroll;
+        background-repeat: repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto;
+        background-origin: padding-box;
+        background-clip: border-box;
+        background-color: white;
+    }
+
+    .CodeMirror-scroll {
+        height: 100%;
+        padding-right: 30px;
+        padding-bottom: 30px;
+        margin-right: -30px;
+        margin-bottom: -30px;
+        position: relative;
+        outline-width: medium;
+        outline-style: none;
+        outline-color: invert;
+    }
+
+    .CodeMirror-sizer {
+        position: relative;
+    }
+
+    .CodeMirror-gutters {
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        padding-bottom: 30px;
+        position: absolute;
+        z-index: 3;
+    }
+
+    .CodeMirror-gutter {
+        height: 100%;
+        padding-bottom: 30px;
+        margin-bottom: -32px;
+        display: inline-block;
+    }
+
+    .CodeMirror-gutter-elt {
+        position: absolute;
+        z-index: 4;
+        cursor: default;
+    }
+
+    .CodeMirror-lines {
+        cursor: text;
+    }
+
+    .CodeMirror pre {
+        color: inherit;
+        line-height: inherit;
+        overflow: visible;
+        font-family: inherit;
+        font-size: inherit;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+        white-space: pre;
+        position: relative;
+        z-index: 2;
+        word-wrap: normal;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        background-image: none;
+        background-attachment: scroll;
+        background-repeat: repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto;
+        background-origin: padding-box;
+        background-clip: border-box;
+        background-color: transparent;
+    }
+
+    .CodeMirror-measure {
+        width: 100%;
+        height: 0px;
+        overflow: hidden;
+        visibility: hidden;
+        position: absolute;
+    }
+
+        .CodeMirror-measure pre {
+            position: static;
+        }
+
+    .CodeMirror div.CodeMirror-cursor {
+        width: 0px;
+        border-right-color: currentColor;
+        border-right-width: medium;
+        border-right-style: none;
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .CodeMirror-selected {
+        background-image: none;
+        background-attachment: scroll;
+        background-repeat: repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto;
+        background-origin: padding-box;
+        background-clip: border-box;
+        background-color: rgb(217, 217, 217);
+    }
+
+    body {
+        color: #333;
+        background-image: none;
+        background-attachment: scroll;
+        background-repeat: repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto;
+        background-origin: padding-box;
+        background-clip: border-box;
+        background-color: rgb(238, 238, 238);
+    }
+
+    .CodeMirror {
+        height: 450px;
+        font-size: 90%;
+        margin-bottom: 6px;
+        border-top-color: #ccc;
+        border-right-color: #ccc;
+        border-bottom-color: #ccc;
+        border-left-color: #ccc;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+        border-top-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        background-image: none;
+        background-attachment: scroll;
+        background-repeat: repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto;
+        background-origin: padding-box;
+        background-clip: border-box;
+        background-color: white;
+    }
+</style>
+        <div style="line-height: 0;"><div class="CodeMirror cm-s-default"><div tabindex="-1" class="CodeMirror-scroll" draggable="true">
+
+<div style="position: relative; min-height: 100%;">
+ <div class="CodeMirror-sizer" style="margin-left: 29px; min-height: 497.59px; min-width: 641.8px;">
+  <div style="top: 0px; position: relative;">
+   <div class="CodeMirror-lines">
+    <div style="position: relative; outline-width: medium; outline-style: none; outline-color: invert;">
+     <div class="CodeMirror-measure">
+      <pre>
+       <span class="cm-variable">S</span><span class="cm-variable">e</span><span class="cm-variable">c</span><span class="cm-variable">u</span><span class="cm-variable">r</span><span class="cm-variable">i</span><span class="cm-variable">t</span><span class="cm-variable">y</span><span>.</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span class="cm-property">M</span><span class="cm-property">o</span><span class="cm-property">d</span><span class="cm-property">e</span><span class="cm-property">l</span><span class="cm-property">s</span><span>.</span><span class="cm-property">L</span><span class="cm-property">o</span><span class="cm-property">g</span><span class="cm-property">i</span><span class="cm-property">n</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span class="cm-property">M</span><span class="cm-property">o</span><span class="cm-property">d</span><span class="cm-property">e</span><span class="cm-property">l</span><span> </span><span>=</span><span> </span><span class="cm-keyword">f</span><span class="cm-keyword">u</span><span class="cm-keyword">n</span><span class="cm-keyword">c</span><span class="cm-keyword">t</span><span class="cm-keyword">i</span><span class="cm-keyword">o</span><span class="cm-keyword">n</span><span> </span><span>(</span><span class="cm-def">m</span><span class="cm-def">o</span><span class="cm-def">d</span><span class="cm-def">e</span><span class="cm-def">l</span><span>)</span><span> </span><span>{</span>
+      </pre>
+     </div>
+     <div style="position: relative; z-index: 1; display: none;">
+      <div class="CodeMirror-selected" style="left: 4px; top: 187.2px; width: 146.87px; height: 14px; position: absolute;"></div>
+      <div class="CodeMirror-selected" style="left: 4px; top: 0px; width: 1852px; height: 187.2px; position: absolute;"></div>
+     </div>
+     <div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         1
+        </div>
+       </div>
+       <pre>
+        <span class="cm-variable">Security</span>.<span class="cm-property">ViewModels</span>.<span class="cm-property">LoginViewModel</span> = <span class="cm-keyword">function</span> (<span class="cm-def">model</span>) {
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         2
+        </div>
+       </div>
+       <pre>
+            <span class="cm-keyword">var</span> <span class="cm-def">self</span> = <span class="cm-keyword">this</span>;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         3
+        </div>
+       </div>
+       <pre>
+            <span class="cm-variable-2">self</span>.<span class="cm-property">rememberMe</span> = <span class="cm-variable">ko</span>.<span class="cm-property">observable</span>(<span class="cm-atom">false</span>);
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         4
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         5
+        </div>
+       </div>
+       <pre>
+            <span class="cm-variable-2">self</span>.<span class="cm-property">model</span> = <span class="cm-variable">kb</span>.<span class="cm-property">viewModel</span>(<span class="cm-variable-2">model</span>);
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         6
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         7
+        </div>
+       </div>
+       <pre>
+            <span class="cm-variable-2">self</span>.<span class="cm-property">signIn</span> = <span class="cm-keyword">function</span> () {
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         8
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         9
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         10
+        </div>
+       </div>
+       <pre>
+                <span class="cm-comment">//Some code to post data to server and get results</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         11
+        </div>
+       </div>
+       <pre>
+                <span class="cm-comment">//You can access the Model as json using self.parentView.model</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         12
+        </div>
+       </div>
+       <pre>
+                <span class="cm-keyword">this</span>.<span class="cm-property">success</span>({
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         13
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"UserID"</span>: <span class="cm-string">"Person1"</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         14
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"UserName"</span>: <span class="cm-string">"Saqib Shakil"</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         15
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"IsLoggedIn"</span>: <span class="cm-atom">true</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         16
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"LoginToken"</span>: <span class="cm-string">"af29ded0-83c7-4570-9356-d4d1c7b29978"</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         17
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"AvailableModules"</span>: [{
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         18
+        </div>
+       </div>
+       <pre>
+                        <span class="cm-string cm-property">"ModName"</span>: <span class="cm-string">"GMC"</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         19
+        </div>
+       </div>
+       <pre>
+                        <span class="cm-string cm-property">"IsDefault"</span>: <span class="cm-atom">false</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         20
+        </div>
+       </div>
+       <pre>
+                    }, {
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         21
+        </div>
+       </div>
+       <pre>
+                        <span class="cm-string cm-property">"ModName"</span>: <span class="cm-string">"Connect"</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         22
+        </div>
+       </div>
+       <pre>
+                        <span class="cm-string cm-property">"IsDefault"</span>: <span class="cm-atom">true</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         23
+        </div>
+       </div>
+       <pre>
+                    }],
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         24
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"Message"</span>: <span class="cm-atom">null</span>,
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         25
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-string cm-property">"UniqueIdentifier"</span>: <span class="cm-string">"842"</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         26
+        </div>
+       </div>
+       <pre>
+                });
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         27
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         28
+        </div>
+       </div>
+       <pre>
+            };
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         29
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         30
+        </div>
+       </div>
+       <pre>
+            <span class="cm-variable-2">self</span>.<span class="cm-property">success</span> = <span class="cm-keyword">function</span> (<span class="cm-def">response</span>) {
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         31
+        </div>
+       </div>
+       <pre>
+                <span class="cm-variable">self</span>.<span class="cm-property">controller</span>.<span class="cm-property">loggedin</span>(<span class="cm-variable-2">response</span>);
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         32
+        </div>
+       </div>
+       <pre>
+            };
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         33
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         34
+        </div>
+       </div>
+       <pre>
+        };
+       </pre>
+      </div>
+     </div>
+     <div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 14px;">
+      &nbsp;
+     </div>
+     <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">
+      &nbsp;
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div style="top: 497.59px; width: 1px; height: 30px; position: absolute;"></div>
+ <div class="CodeMirror-gutters">
+  <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+ </div>
+</div>
+
+</div></div></div>
+    </div>
+    <h2>Code To Load View</h2>
+    <div>
+        <style>
+            .CodeMirror {
+                height: 300px;
+                font-family: monospace;
+            }
+
+            .CodeMirror-scroll {
+                overflow: auto;
+            }
+
+            .CodeMirror-lines {
+                padding-top: 4px;
+                padding-right: 0px;
+                padding-bottom: 4px;
+                padding-left: 0px;
+            }
+
+            .CodeMirror pre {
+                padding-top: 0px;
+                padding-right: 4px;
+                padding-bottom: 0px;
+                padding-left: 4px;
+            }
+
+            .CodeMirror-gutters {
+                border-right-color: #ddd;
+                border-right-width: 1px;
+                border-right-style: solid;
+                background-color: rgb(247, 247, 247);
+            }
+
+            .CodeMirror-linenumber {
+                text-align: right;
+                color: #999;
+                padding-top: 0px;
+                padding-right: 3px;
+                padding-bottom: 0px;
+                padding-left: 5px;
+                min-width: 20px;
+            }
+
+            .CodeMirror div.CodeMirror-cursor {
+                border-left-color: black;
+                border-left-width: 1px;
+                border-left-style: solid;
+                z-index: 3;
+            }
+
+            .CodeMirror div.CodeMirror-secondarycursor {
+                border-left-color: silver;
+                border-left-width: 1px;
+                border-left-style: solid;
+            }
+
+            .cm-s-default .cm-keyword {
+                color: #708;
+            }
+
+            .cm-s-default .cm-variable {
+                color: black;
+            }
+
+            .cm-s-default .cm-property {
+                color: black;
+            }
+
+            .cm-s-default .cm-string {
+                color: #a11;
+            }
+
+            .CodeMirror {
+                color: black;
+                line-height: 1;
+                overflow: hidden;
+                position: relative;
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                background-color: white;
+            }
+
+            .CodeMirror-scroll {
+                height: 100%;
+                padding-right: 30px;
+                padding-bottom: 30px;
+                margin-right: -30px;
+                margin-bottom: -30px;
+                position: relative;
+                outline-width: medium;
+                outline-style: none;
+                outline-color: invert;
+            }
+
+            .CodeMirror-sizer {
+                position: relative;
+            }
+
+            .CodeMirror-gutters {
+                left: 0px;
+                top: 0px;
+                height: 100%;
+                padding-bottom: 30px;
+                position: absolute;
+                z-index: 3;
+            }
+
+            .CodeMirror-gutter {
+                height: 100%;
+                padding-bottom: 30px;
+                margin-bottom: -32px;
+                display: inline-block;
+            }
+
+            .CodeMirror-gutter-elt {
+                position: absolute;
+                z-index: 4;
+                cursor: default;
+            }
+
+            .CodeMirror-lines {
+                cursor: text;
+            }
+
+            .CodeMirror pre {
+                color: inherit;
+                line-height: inherit;
+                overflow: visible;
+                font-family: inherit;
+                font-size: inherit;
+                margin-top: 0px;
+                margin-right: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                border-top-width: 0px;
+                border-right-width: 0px;
+                border-bottom-width: 0px;
+                border-left-width: 0px;
+                white-space: pre;
+                position: relative;
+                z-index: 2;
+                word-wrap: normal;
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                background-color: transparent;
+            }
+
+            .CodeMirror-measure {
+                width: 100%;
+                height: 0px;
+                overflow: hidden;
+                visibility: hidden;
+                position: absolute;
+            }
+
+                .CodeMirror-measure pre {
+                    position: static;
+                }
+
+            .CodeMirror div.CodeMirror-cursor {
+                width: 0px;
+                border-right-color: currentColor;
+                border-right-width: medium;
+                border-right-style: none;
+                visibility: hidden;
+                position: absolute;
+            }
+
+            .CodeMirror-selected {
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                background-color: rgb(217, 217, 217);
+            }
+
+            body {
+                color: #333;
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                background-color: rgb(238, 238, 238);
+            }
+
+            .CodeMirror {
+                height: 450px;
+                font-size: 90%;
+                margin-bottom: 6px;
+                border-top-color: #ccc;
+                border-right-color: #ccc;
+                border-bottom-color: #ccc;
+                border-left-color: #ccc;
+                border-top-width: 1px;
+                border-right-width: 1px;
+                border-bottom-width: 1px;
+                border-left-width: 1px;
+                border-top-style: solid;
+                border-right-style: solid;
+                border-bottom-style: solid;
+                border-left-style: solid;
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                background-color: white;
+            }
+        </style>
+        <div style="line-height: 0;">
+            <div class="CodeMirror cm-s-default">
+                <div tabindex="-1" class="CodeMirror-scroll" draggable="true">
+
+                    <div style="position: relative; min-height: 100%;">
+                        <div class="CodeMirror-sizer" style="margin-left: 29px; min-height: 209.6px; min-width: 572.69px;">
+                            <div style="top: 0px; position: relative;">
+                                <div class="CodeMirror-lines">
+                                    <div style="position: relative; outline-width: medium; outline-style: none; outline-color: invert;">
+                                        <div class="CodeMirror-measure">
+                                            <pre>
+       <span class="cm-keyword">v</span><span class="cm-keyword">a</span><span class="cm-keyword">r</span><span> </span><span class="cm-variable">m</span><span class="cm-variable">o</span><span class="cm-variable">d</span><span class="cm-variable">e</span><span class="cm-variable">l</span><span> </span><span>=</span><span> </span><span class="cm-keyword">n</span><span class="cm-keyword">e</span><span class="cm-keyword">w</span><span> </span><span class="cm-variable">S</span><span class="cm-variable">e</span><span class="cm-variable">c</span><span class="cm-variable">u</span><span class="cm-variable">r</span><span class="cm-variable">i</span><span class="cm-variable">t</span><span class="cm-variable">y</span><span>.</span><span class="cm-property">M</span><span class="cm-property">o</span><span class="cm-property">d</span><span class="cm-property">e</span><span class="cm-property">l</span><span class="cm-property">s</span><span>.</span><span class="cm-property">L</span><span class="cm-property">o</span><span class="cm-property">g</span><span class="cm-property">i</span><span class="cm-property">n</span><span class="cm-property">M</span><span class="cm-property">o</span><span class="cm-property">d</span><span class="cm-property">e</span><span class="cm-property">l</span><span>(</span><span>{</span>
+      </pre>
+                                        </div>
+                                        <div style="position: relative; z-index: 1; display: none;">
+                                            <div class="CodeMirror-selected" style="left: 4px; top: 43.2px; width: 25.91px; height: 14px; position: absolute;"></div>
+                                            <div class="CodeMirror-selected" style="left: 4px; top: 0px; width: 1852px; height: 43.2px; position: absolute;"></div>
+                                        </div>
+                                        <div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        1
+                                                    </div>
+                                                </div>
+                                                <pre>
+        <span class="cm-keyword">var</span> <span class="cm-variable">model</span> = <span class="cm-keyword">new</span> <span class="cm-variable">Security</span>.<span class="cm-property">Models</span>.<span class="cm-property">LoginModel</span>({
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        2
+                                                    </div>
+                                                </div>
+                                                <pre>
+            <span class="cm-property">username</span>: <span class="cm-string">"Person1"</span>,
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        3
+                                                    </div>
+                                                </div>
+                                                <pre>
+            <span class="cm-property">password</span>: <span class="cm-string">"password"</span>
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        4
+                                                    </div>
+                                                </div>
+                                                <pre>
+        });
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        5
+                                                    </div>
+                                                </div>
+                                                <pre>
+        &nbsp;
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        6
+                                                    </div>
+                                                </div>
+                                                <pre>
+        <span class="cm-keyword">var</span> <span class="cm-variable">viewModel</span> = <span class="cm-keyword">new</span> <span class="cm-variable">Security</span>.<span class="cm-property">ViewModels</span>.<span class="cm-property">LoginViewModel</span>(<span class="cm-variable">model</span>);
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        7
+                                                    </div>
+                                                </div>
+                                                <pre>
+        <span class="cm-variable">viewModel</span>.<span class="cm-property">controller</span> = <span class="cm-keyword">this</span>;
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        8
+                                                    </div>
+                                                </div>
+                                                <pre>
+        &nbsp;
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        9
+                                                    </div>
+                                                </div>
+                                                <pre>
+        <span class="cm-keyword">var</span> <span class="cm-variable">view</span> = <span class="cm-keyword">new</span> <span class="cm-variable">Security</span>.<span class="cm-property">Views</span>.<span class="cm-property">LoginView</span>({
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        10
+                                                    </div>
+                                                </div>
+                                                <pre>
+            <span class="cm-property">model</span>: <span class="cm-variable">model</span>,
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        11
+                                                    </div>
+                                                </div>
+                                                <pre>
+            <span class="cm-property">viewModel</span>: <span class="cm-variable">viewModel</span>
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        12
+                                                    </div>
+                                                </div>
+                                                <pre>
+        });
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        13
+                                                    </div>
+                                                </div>
+                                                <pre>
+        &nbsp;
+       </pre>
+                                            </div>
+                                            <div style="position: relative;">
+                                                <div style="left: -29px; position: absolute;">
+                                                    <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+                                                        14
+                                                    </div>
+                                                </div>
+                                                <pre>
+        <span class="cm-variable">region</span>.<span class="cm-property">show</span>(<span class="cm-variable">view</span>)
+       </pre>
+                                            </div>
+                                        </div>
+                                        <div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 14px; visibility: hidden;">
+                                            &nbsp;
+                                        </div>
+                                        <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="top: 209.6px; width: 1px; height: 30px; position: absolute;"></div>
+                        <div class="CodeMirror-gutters">
+                            <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>View</h2>
+    <div class="brush: js">
+<style>
+.CodeMirror
+{
+	height: 300px;
+	font-family: monospace;
+}
+.CodeMirror-scroll
+{
+	overflow: auto;
+}
+.CodeMirror-lines
+{
+	padding-top: 4px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	padding-left: 0px;
+}
+.CodeMirror pre
+{
+	padding-top: 0px;
+	padding-right: 4px;
+	padding-bottom: 0px;
+	padding-left: 4px;
+}
+.CodeMirror-gutters
+{
+	border-right-color: #ddd;
+	border-right-width: 1px;
+	border-right-style: solid;
+	background-color: rgb(247, 247, 247);
+}
+.CodeMirror-linenumber
+{
+	text-align: right;
+	color: #999;
+	padding-top: 0px;
+	padding-right: 3px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	min-width: 20px;
+}
+.CodeMirror div.CodeMirror-cursor
+{
+	border-left-color: black;
+	border-left-width: 1px;
+	border-left-style: solid;
+	z-index: 3;
+}
+.CodeMirror div.CodeMirror-secondarycursor
+{
+	border-left-color: silver;
+	border-left-width: 1px;
+	border-left-style: solid;
+}
+.cm-s-default .cm-variable
+{
+	color: black;
+}
+.cm-s-default .cm-property
+{
+	color: black;
+}
+.CodeMirror
+{
+	color: black;
+	line-height: 1;
+	overflow: hidden;
+	position: relative;
+	background-image: none;
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position-x: 0%;
+	background-position-y: 0%;
+	background-size: auto;
+	background-origin: padding-box;
+	background-clip: border-box;
+	background-color: white;
+}
+.CodeMirror-scroll
+{
+	height: 100%;
+	padding-right: 30px;
+	padding-bottom: 30px;
+	margin-right: -30px;
+	margin-bottom: -30px;
+	position: relative;
+	outline-width: medium;
+	outline-style: none;
+	outline-color: invert;
+}
+.CodeMirror-sizer
+{
+	position: relative;
+}
+.CodeMirror-gutters
+{
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	padding-bottom: 30px;
+	position: absolute;
+	z-index: 3;
+}
+.CodeMirror-gutter
+{
+	height: 100%;
+	padding-bottom: 30px;
+	margin-bottom: -32px;
+	display: inline-block;
+}
+.CodeMirror-gutter-elt
+{
+	position: absolute;
+	z-index: 4;
+	cursor: default;
+}
+.CodeMirror-lines
+{
+	cursor: text;
+}
+.CodeMirror pre
+{
+	color: inherit;
+	line-height: inherit;
+	overflow: visible;
+	font-family: inherit;
+	font-size: inherit;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	white-space: pre;
+	position: relative;
+	z-index: 2;
+	word-wrap: normal;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background-image: none;
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position-x: 0%;
+	background-position-y: 0%;
+	background-size: auto;
+	background-origin: padding-box;
+	background-clip: border-box;
+	background-color: transparent;
+}
+.CodeMirror-measure
+{
+	width: 100%;
+	height: 0px;
+	overflow: hidden;
+	visibility: hidden;
+	position: absolute;
+}
+.CodeMirror-measure pre
+{
+	position: static;
+}
+.CodeMirror div.CodeMirror-cursor
+{
+	width: 0px;
+	border-right-color: currentColor;
+	border-right-width: medium;
+	border-right-style: none;
+	visibility: hidden;
+	position: absolute;
+}
+.CodeMirror-selected
+{
+	background-image: none;
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position-x: 0%;
+	background-position-y: 0%;
+	background-size: auto;
+	background-origin: padding-box;
+	background-clip: border-box;
+	background-color: rgb(217, 217, 217);
+}
+body
+{
+	color: #333;
+	background-image: none;
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position-x: 0%;
+	background-position-y: 0%;
+	background-size: auto;
+	background-origin: padding-box;
+	background-clip: border-box;
+	background-color: rgb(238, 238, 238);
+}
+.CodeMirror
+{
+	height: 450px;
+	font-size: 90%;
+	margin-bottom: 6px;
+	border-top-color: #ccc;
+	border-right-color: #ccc;
+	border-bottom-color: #ccc;
+	border-left-color: #ccc;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	background-image: none;
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position-x: 0%;
+	background-position-y: 0%;
+	background-size: auto;
+	background-origin: padding-box;
+	background-clip: border-box;
+	background-color: white;
+}
+
+</style>
+        <div style="line-height: 0;"><div class="CodeMirror cm-s-default" style="height:auto;" ><div tabindex="-1" class="CodeMirror-scroll" style="height:auto;" draggable="true">
+
+<div style="position: relative;">
+ <div class="CodeMirror-sizer" style="margin-left: 29px; min-height: 65.6px; min-width: 598.6px;">
+  <div style="top: 0px; position: relative;">
+   <div class="CodeMirror-lines">
+    <div style="position: relative;">
+     <div class="CodeMirror-measure">
+      <pre>
+       <span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span class="cm-variable">S</span><span class="cm-variable">e</span><span class="cm-variable">c</span><span class="cm-variable">u</span><span class="cm-variable">r</span><span class="cm-variable">i</span><span class="cm-variable">t</span><span class="cm-variable">y</span><span>.</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span class="cm-property">s</span><span>.</span><span class="cm-property">L</span><span class="cm-property">o</span><span class="cm-property">g</span><span class="cm-property">i</span><span class="cm-property">n</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span> </span><span>=</span><span> </span><span class="cm-variable">a</span><span class="cm-variable">p</span><span class="cm-variable">p</span><span>.</span><span class="cm-property">G</span><span class="cm-property">L</span><span>.</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span class="cm-property">s</span><span>.</span><span class="cm-property">M</span><span class="cm-property">v</span><span class="cm-property">v</span><span class="cm-property">m</span><span class="cm-property">V</span><span class="cm-property">i</span><span class="cm-property">e</span><span class="cm-property">w</span><span>.</span><span class="cm-property">e</span><span class="cm-property">x</span><span class="cm-property">t</span><span class="cm-property">e</span><span class="cm-property">n</span><span class="cm-property">d</span><span>(</span><span>{</span>
+      </pre>
+     </div>
+     <div style="display: none; position: relative; z-index: 1;">
+      <div class="CodeMirror-selected" style="left: 4px; top: 475.19px; width: 17.27px; height: 14px; position: absolute;"></div>
+      <div class="CodeMirror-selected" style="left: 4px; top: 0px; width: 1835px; height: 475.19px; position: absolute;"></div>
+     </div>
+     <div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         1
+        </div>
+       </div>
+       <pre>
+                <span class="cm-variable">Security</span>.<span class="cm-property">Views</span>.<span class="cm-property">LoginView</span> = <span class="cm-variable">app</span>.<span class="cm-property">GL</span>.<span class="cm-property">Views</span>.<span class="cm-property">MvvmView</span>.<span class="cm-property">extend</span>({
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         2
+        </div>
+       </div>
+       <pre>
+                    <span class="cm-property">template</span>: <span class="cm-variable">loginTemplate</span>
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         3
+        </div>
+       </div>
+       <pre>
+        &nbsp;
+       </pre>
+      </div>
+      <div style="position: relative;">
+       <div style="left: -29px; position: absolute;">
+        <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">
+         4
+        </div>
+       </div>
+       <pre>
+                });
+       </pre>
+      </div>
+     </div>
+     <div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 14px;">
+      &nbsp;
+     </div>
+     <div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">
+      &nbsp;
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div style="top: 65.6px; width: 1px; height: 30px; position: absolute;"></div>
+ <div class="CodeMirror-gutters">
+  <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div>
+ </div>
+</div>
+
+</div></div></div>
+    </div>
+    <h2>Template</h2>
+    <textarea class="noprotect" id="o_code" rows="30" style="width:100%" readonly="readonly">
+        
+       &lt;div&gt;
+	&lt;div class="span4 well well-large" id="Login"&gt;
+		&lt;fieldset title="Please Sign In"&gt;
+			&lt;legend&gt;Please Sign In&lt;/legend&gt;
+			&lt;input id="username" name="Username" type="text" class="input-block-level" placeholder="Email address" data-bind="value: model.username"/&gt;
+			&lt;input id="password" name="Password" type="password" class="input-block-level" placeholder="Password" data-bind="value: model.password"/&gt;
+			&lt;label class="checkbox"&gt;
+			&lt;input type="checkbox" value="remember-me" data-bind="value: rememberMe"/&gt;
+			Remember me &lt;/label&gt;
+			&lt;button id="button_login" class="btn btn-large btn-primary" data-bind="click: signIn"&gt;
+			Sign in &lt;/button&gt;
+		&lt;/fieldset&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+    </textarea>
+</section>
+
+

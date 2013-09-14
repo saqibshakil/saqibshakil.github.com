@@ -4,9 +4,10 @@ define([
     "backbone", 
     "marionette", 
     "jquery", 
-    "underscore", 
+    "underscore",
     "subroute", 
     "routefilter"
+
 ], function (namespace, GL, Backbone, Marionette, $, _) {
     var app = namespace.app;
     app.module("Documentation", function (Documentation, app, Backbone, Marionette, $, _) {
@@ -17,7 +18,9 @@ define([
                     "text!../modules/Documentation/templates/" + document + ".htm"
                 ], function (doc) {
                     var view = Marionette.ItemView.extend({
-                        template: doc
+                        template: doc,
+                        onShow: function () {
+                        }
                     });
                     _this.DeferUntilLayoutShown(_this.Layout.content, new view());
                 });

@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../typings/require.d.ts" />
+declare var SyntaxHighlighter: any;
 define([
 // Libs
 	"namespace",
@@ -26,7 +27,10 @@ function (namespace, GL, Backbone, Marionette, $, _) {
                 
                 require(["text!../modules/Documentation/templates/" + document + ".htm"], doc => {
                     var view = Marionette.ItemView.extend({
-                        template: doc
+                        template: doc,
+                        onShow: function () {
+                            SyntaxHighlighter.all();
+                        }
                     });
                     this.DeferUntilLayoutShown(this.Layout.content, new view());
                 });

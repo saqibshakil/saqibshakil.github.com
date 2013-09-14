@@ -8,7 +8,7 @@ define([
     "./Router",
     "./Models",
     "./ViewModels",
-    "./Views"
+    "./Views",
 ],
 
 function (namespace, Backbone, Marionette, $, _) {

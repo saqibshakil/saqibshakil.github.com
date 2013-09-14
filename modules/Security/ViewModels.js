@@ -26,27 +26,32 @@ function (namespace, Backbone, Marionette, $, _, ko, kb) {
             self.model = kb.viewModel(model);
 
             self.signIn = function () {
-                
-                    
-                //// ---------------------------------------    Single Call Code
-                //                        app.GL.Post("GL.Security.Login", this.model, this.success);
 
-                //var batcher = new app.GL.BatchPost();
 
-                //// ---------------------------------------    BATCH Call Code
-                //batcher.Add("GL.Security.Login", self.parentView.model, this.success);
-                //batcher.Add("GL.Security.Bogus", 24);
-                //batcher.Post();
+                //Some code to post data to server and get results
+                //You can access the Model as json using self.parentView.model
+                this.success({
+                    "UserID": "Person1",
+                    "UserName": "Saqib Shakil",
+                    "IsLoggedIn": true,
+                    "LoginToken": "af29ded0-83c7-4570-9356-d4d1c7b29978",
+                    "AvailableModules": [{
+                        "ModName": "GMC",
+                        "IsDefault": false
+                    }, {
+                        "ModName": "Connect",
+                        "IsDefault": true
+                    }],
+                    "Message": null,
+                    "UniqueIdentifier": "842"
+                });
 
-                //// ---------------------------------------    No Call Code
-                this.success({"UserID":"Person1","UserName":"Saqib Shakil","IsLoggedIn":true,"LoginToken":"af29ded0-83c7-4570-9356-d4d1c7b29978","AvailableModules":[{"ModName":"GMC","IsDefault":false},{"ModName":"Connect","IsDefault":true}], "Message": null, "UniqueIdentifier": "842" });
-                    
             };
 
             self.success = function (response) {
                 self.controller.loggedin(response);
             };
-            
+
         };
 
 

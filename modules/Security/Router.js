@@ -53,20 +53,20 @@ function (namespace, Backbone, Marionette, $, _) {
                 if (Security.Models.loggedInUser.get("LoginToken") != undefined && Security.Models.loggedInUser.get("LoginToken") != "")
                     return;
 
-                var person = {
+                
+                var model = new Security.Models.LoginModel({
                     username: "Person1",
                     password: "password"
-                };
-                var model = new Security.Models.LoginModel(person);
-                var view = new Security.Views.LoginView({
-                    model: model
                 });
-                
 
                 var viewModel = new Security.ViewModels.LoginViewModel(model);
-                
-                view.viewModel = viewModel;
                 viewModel.controller = this;
+
+                var view = new Security.Views.LoginView({
+                    model: model,
+                    viewModel: viewModel
+
+                });
 
                 app.content.show(view);
 
@@ -86,7 +86,7 @@ function (namespace, Backbone, Marionette, $, _) {
 
             initialize: function (options) {
                 this.options = options;
-                _.bindAll(this, "login", "loginwithcallback","gotoHome");
+                _.bindAll(this, "login", "loginwithcallback", "gotoHome");
             },
 
             routes: {

@@ -138,6 +138,7 @@
     <Content Include="modules\Documentation\Router.min.js" />
     <Content Include="modules\Documentation\Router.ts" />
     <Content Include="modules\Documentation\templates\AuthenticatedModules.htm" />
+    <Content Include="modules\Documentation\templates\MVVM.htm" />
     <Content Include="modules\Documentation\templates\Main.htm" />
     <Content Include="modules\Documentation\templates\Menu.htm" />
     <Content Include="modules\Documentation\templates\ModularArchitecture.htm" />
@@ -192,7 +193,9 @@
     </Content>
     <Content Include="js\libs\backbone\backbone.min.js.map" />
     <Content Include="js\libs\gl.js.map" />
-    <Content Include="js\libs\gl.min.js.map" />
+    <Content Include="js\libs\gl.min.js.map">
+      <DependentUpon>gl.js</DependentUpon>
+    </Content>
     <Content Include="js\libs\jquery\jquery-1.8.0.min.js.map" />
     <Content Include="js\libs\knockout\knockback.min.js.map" />
     <Content Include="js\libs\knockout\knockout.min.js.map" />
@@ -234,7 +237,9 @@
     <Content Include="modules\Documentation\Main.js.map" />
     <Content Include="modules\Documentation\Models.js.map" />
     <Content Include="modules\Documentation\Router.js.map" />
-    <Content Include="modules\Documentation\Router.min.js.map" />
+    <Content Include="modules\Documentation\Router.min.js.map">
+      <DependentUpon>Router.js</DependentUpon>
+    </Content>
     <Content Include="modules\Documentation\ViewModels.js.map" />
     <Content Include="modules\Documentation\ViewModels.min.js.map" />
     <Content Include="modules\Documentation\Views.js.map" />

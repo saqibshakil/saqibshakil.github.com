@@ -84,6 +84,7 @@ require([
     "gl",
     "system/General/Main",
     "bootstrap"
+    
 ],
 
 function (namespace, $, Backbone, GL, General) {
