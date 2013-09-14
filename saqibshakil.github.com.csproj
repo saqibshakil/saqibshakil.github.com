@@ -128,24 +128,25 @@
     <Content Include="modules\Connect\Views.js" />
     <Content Include="modules\Connect\Views.min.js" />
     <Content Include="modules\Connect\Views.ts" />
-    <Content Include="modules\Docs\Main.js" />
-    <Content Include="modules\Docs\Main.min.js" />
-    <Content Include="modules\Docs\Main.ts" />
-    <Content Include="modules\Docs\Models.js" />
-    <Content Include="modules\Docs\Models.min.js" />
-    <Content Include="modules\Docs\Models.ts" />
-    <Content Include="modules\Docs\Router.js" />
-    <Content Include="modules\Docs\Router.min.js" />
-    <Content Include="modules\Docs\Router.ts" />
-    <Content Include="modules\Docs\templates\Part.htm" />
-    <Content Include="modules\Docs\templates\Main.htm" />
-    <Content Include="modules\Docs\templates\menu.htm" />
-    <Content Include="modules\Docs\ViewModels.js" />
-    <Content Include="modules\Docs\ViewModels.min.js" />
-    <Content Include="modules\Docs\ViewModels.ts" />
-    <Content Include="modules\Docs\Views.js" />
-    <Content Include="modules\Docs\Views.min.js" />
-    <Content Include="modules\Docs\Views.ts" />
+    <Content Include="modules\Documentation\Main.js" />
+    <Content Include="modules\Documentation\Main.min.js" />
+    <Content Include="modules\Documentation\Main.ts" />
+    <Content Include="modules\Documentation\Models.js" />
+    <Content Include="modules\Documentation\Models.min.js" />
+    <Content Include="modules\Documentation\Models.ts" />
+    <Content Include="modules\Documentation\Router.js" />
+    <Content Include="modules\Documentation\Router.min.js" />
+    <Content Include="modules\Documentation\Router.ts" />
+    <Content Include="modules\Documentation\templates\AuthenticatedModules.htm" />
+    <Content Include="modules\Documentation\templates\Main.htm" />
+    <Content Include="modules\Documentation\templates\Menu.htm" />
+    <Content Include="modules\Documentation\templates\ModularArchitecture.htm" />
+    <Content Include="modules\Documentation\ViewModels.js" />
+    <Content Include="modules\Documentation\ViewModels.min.js" />
+    <Content Include="modules\Documentation\ViewModels.ts" />
+    <Content Include="modules\Documentation\Views.js" />
+    <Content Include="modules\Documentation\Views.min.js" />
+    <Content Include="modules\Documentation\Views.ts" />
     <Content Include="modules\GMC\Main.js" />
     <Content Include="modules\GMC\Models.js" />
     <Content Include="modules\GMC\Router.js" />
@@ -221,33 +222,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="modules\Docs\Main.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\Models.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\Router.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\ViewModels.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\ViewModels.min.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\Views.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\Views.min.js.map" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="modules\Docs\Router.min.js.map">
-      <DependentUpon>Router.js</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="modules\Connect\Router.min.js.map">
@@ -256,6 +231,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="modules\Documentation\Main.js.map" />
+    <Content Include="modules\Documentation\Models.js.map" />
+    <Content Include="modules\Documentation\Router.js.map" />
+    <Content Include="modules\Documentation\Router.min.js.map" />
+    <Content Include="modules\Documentation\ViewModels.js.map" />
+    <Content Include="modules\Documentation\ViewModels.min.js.map" />
+    <Content Include="modules\Documentation\Views.js.map" />
+    <Content Include="modules\Documentation\Views.min.js.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
