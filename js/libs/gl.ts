@@ -58,7 +58,11 @@ function (namespace, Backbone, s, Marionette, $, _, ko) {
 
         //});
         GL.Views.KnockOutMvvmView = Marionette.ItemView.extend({
-
+            initialize: function (options) {
+                if (options.viewModel !== undefined) {
+                    this.viewModel = options.viewModel;
+                }
+            },
             onShow: function () {
                 this.viewModel.parentView = this;
                 ko.applyBindings(this.viewModel, $(this.el)[0]);

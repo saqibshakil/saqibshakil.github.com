@@ -14,8 +14,7 @@
         };
         GL.Views.KnockOutMvvmView = Marionette.ItemView.extend({
             initialize: function (options) {
-                if (options.viewModel !== undefined)
-                {
+                if(options.viewModel !== undefined) {
                     this.viewModel = options.viewModel;
                 }
             },
