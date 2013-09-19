@@ -1,4 +1,4 @@
-define([
+﻿define([
     "namespace", 
     "backbone", 
     "marionette", 
@@ -12,3 +12,4 @@ define([
         };
     });
 });
+//@ sourceMappingURL=ViewModels.js.map

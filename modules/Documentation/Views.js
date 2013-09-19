@@ -1,4 +1,4 @@
-define([
+﻿define([
     "gl", 
     "namespace", 
     "backbone", 
@@ -27,3 +27,4 @@ define([
         });
     });
 });
+//@ sourceMappingURL=Views.js.map

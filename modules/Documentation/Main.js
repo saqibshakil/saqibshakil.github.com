@@ -1,4 +1,4 @@
-define([
+﻿define([
     "namespace", 
     "backbone", 
     "marionette", 
@@ -18,3 +18,4 @@ define([
     app.Documentation.startWithParent = false;
     return app.Documentation;
 });
+//@ sourceMappingURL=Main.js.map

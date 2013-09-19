@@ -1,4 +1,4 @@
-define([
+﻿define([
     "namespace", 
     "gl", 
     "backbone", 
@@ -34,3 +34,4 @@ define([
         }, Connect.Controller));
     });
 });
+//@ sourceMappingURL=Router.js.map

@@ -1,4 +1,4 @@
-require.config({
+﻿require.config({
     urlArgs: "bust=" + "V3",
     paths: {
         libs: "libs",
@@ -97,3 +97,4 @@ require([
         return app.start();
     });
 });
+//@ sourceMappingURL=main.js.map
