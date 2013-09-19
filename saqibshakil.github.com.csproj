@@ -98,6 +98,7 @@
     <Content Include="js\libs\modernizer\modernizr-2.6.1.min.js" />
     <Content Include="js\libs\require\require-2.0.5.js" />
     <Content Include="js\libs\require\text-2.0.3.js" />
+    <Content Include="js\libs\Respond\respond.min.js" />
     <Content Include="js\libs\underscore\underscore.js" />
     <Content Include="js\libs\underscore\underscore.min.js" />
     <Content Include="js\main.js" />

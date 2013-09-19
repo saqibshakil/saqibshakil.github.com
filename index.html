@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <title>My Single Page Application</title>
-    <meta charset="utf-8" />
-        <!-- Internet Explorer has many rendering engines ready for use. What this line of code basically
+    <meta charset="utf-8">
+    <!-- Internet Explorer has many rendering engines ready for use. What this line of code basically
 		does is force IE to use the most up to date rendering engine that it has available,
 		so that your pages will render as well as possible. It then goes on to talk about Chrome Frame.
 		Chrome Frame is a plugin for IE6, 7, and 8 which brings all the rendering, 
@@ -17,8 +17,8 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete the references -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="css/animation.css" rel="stylesheet" />
+    <link href="css/animation.css" rel="stylesheet">
+    <script src="js/libs/Respond/respond.min.js"></script>
     <script data-main="js/main" src="js/libs/require/require-2.0.5.js"></script>
     <!--
          Modernizer library detects HTML5 and CSS3 features in the user’s browser.
@@ -41,43 +41,63 @@
         document.head.appendChild(loader)
     </script>
     -->
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-44072545-1', 'saqibshakil.github.io');
-    ga('send', 'pageview');
+        ga('create', 'UA-44072545-1', 'saqibshakil.github.io');
+        ga('send', 'pageview');
 
-</script>
+    </script>
+    <style>
+        body
+        {
+            color: #333;
+            background-image: none;
+            background-attachment: scroll;
+            background-repeat: repeat;
+            background-position-x: 0%;
+            background-position-y: 0%;
+            background-size: auto;
+            background-origin: padding-box;
+            background-clip: border-box;
+            background-color: rgb(238, 238, 238);
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                </a><a class="brand" href="#Home">My Single Page Application</a>
-                <div class="nav-collapse collapse">
-                    <div id="top_left">
-                    </div>
-                    <div>
-                        <ul id="top_right" class="nav pull-right">
-                        </ul>
-                    </div>
-                </div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">My Single Page Application</a>
             </div>
+
+            <div class="navbar-collapse collapse">
+                <ul id="top_left" class="nav navbar-nav">
+                </ul>
+
+                <ul id="top_right" class="nav  navbar-nav pull-right navbar-right">
+                </ul>
+            </div>
+            <!--/.navbar-collapse -->
         </div>
     </div>
+    &nbsp;
     <div>
-        &nbsp;</div>
+        &nbsp;
+    </div>
     <div>
-        &nbsp;</div>
-    <div>
-        &nbsp;</div>
+        &nbsp;
+    </div>
     <div class="container-fluid">
         <div id="app_main_content" class="container-fluid">
         </div>
@@ -86,14 +106,15 @@
     <div class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                &times;</button>
-            <h3>
-                Modal header</h3>
+                ×</button>
+            <h3>Modal header</h3>
         </div>
         <div class="modal-body" id="modal">
             <p>
-                One fine body…</p>
+                One fine body…
+            </p>
         </div>
     </div>
+
 </body>
 </html>

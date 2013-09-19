@@ -80,7 +80,7 @@ function (GL, namespace, Backbone, Marionette, $, _, loginTemplate, noUserLogged
 
         Security.Views.Modules = Marionette.CollectionView.extend({
             tagName: "ul",
-            className: 'nav',
+            className: 'nav navbar-nav',
             itemView: Security.Views.Module,
             itemViewEventPrefix: "itemview",
             onBeforeRender: function () {
