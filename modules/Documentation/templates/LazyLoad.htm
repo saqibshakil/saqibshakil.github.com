@@ -1,0 +1,12 @@
+﻿<section id="modals">
+    <div class="page-header">
+        <h1>Lazy Loading Modules<small>app.GL.ModuleRouter</small></h1>
+    </div>
+    
+    <p>Loading the entire Application in one go is a bad idea for any size of application let alone an Enterprise scale one. As I have seen my SPA grow up to more than 5mb in size over a long term development period. So then what are the alternatives, as I have explained earlier that its a bad idea to build a large scale SPA rather we should concentrate on smaller modules. So then how do these module interact, I can think of two ways event driven, or Hash Url Routing. I have implemented the Hash Url routing in this sample. </p>
+
+    <h3>How is it done</h3>
+    <p>If any multilevel Hash Url contains any Route which is not in the list of active routes the router will try to fetch the relevent module from the module directory. For eg in the case of #Soccer/Ronaldo the framework will try to load the Main.Js from root\modules\Soccer\Main.js and from there initialize the Subrouter in that module and ask it to handle the route "Ronaldo". This way  modules can be plugged in and activated as needed. </p>
+
+    <p><small>P.S. In the case of linux server filenames are case sensitive.</small></p>
+</section>
