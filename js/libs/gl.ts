@@ -297,7 +297,6 @@ function (namespace, Backbone, s, Marionette, $, _, ko) {
                     this.promiseClose(view).done(function () {
                         self.addBaseAnimate(view);
                         self.addTransitionInit(view, self);
-                        console.log("loaded added");
                         view.render();
                         if (isDifferentView || isViewClosed) {
                             self.open(view);
@@ -306,11 +305,9 @@ function (namespace, Backbone, s, Marionette, $, _, ko) {
                         view.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
                             view.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
                             self.removeTransitionInit(view);
-                            console.log("loaded removed");
                         });
                         setTimeout(function () {
                             self.addTransitionIn(view);
-                            console.log("displayed");
                         }, 1);
                         Marionette.triggerMethod.call(self, "show", view);
                         Marionette.triggerMethod.call(view, "show");
@@ -328,16 +325,13 @@ function (namespace, Backbone, s, Marionette, $, _, ko) {
                 cView.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
                     cView.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
                     self.removeTransitionOut(cView);
-                    console.log("unloaded added");
                     self.close();
                     deferred.resolve();
                 });
                 self.removeTransitionIn(cView);
                 self.addTransitionOut(cView);
-                console.log("ondisplay removed unloaded added");
                 if (!self.isTransitionSupported()) {
                     self.removeTransitionOut(cView);
-                    console.log("unloaded added");
                     self.close();
                     deferred.resolve();
                 }
@@ -351,7 +345,7 @@ function (namespace, Backbone, s, Marionette, $, _, ko) {
         });
 
 
-        GL.SlideInOutTransitionRegion = GL.TransitionRegion.extend({
+        GL.BookTransitionRegion = GL.TransitionRegion.extend({
 
             addBaseAnimate: function (view) {
                 view.$el.addClass("baseAnimation");
