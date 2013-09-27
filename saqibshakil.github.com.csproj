@@ -22,6 +22,17 @@
   <PropertyGroup>
     <RootNamespace>saqibshakil.github.com</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES3</TypeScriptTarget>
+    <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <ProjectExtensions>
@@ -84,10 +95,17 @@
     <Content Include="js\libs\backbone.subroute\backbone-subroute.min.js" />
     <Content Include="js\libs\backbone\backbone.js" />
     <Content Include="js\libs\backbone\backbone.min.js" />
-    <Content Include="js\libs\bootstrap\bootstrap.min.js" />
+    <Content Include="js\libs\bootstrap\bootstrap.js" />
     <Content Include="js\libs\gl.js" />
     <Content Include="js\libs\gl.min.js" />
     <Content Include="js\libs\gl.ts" />
+    <TypeScriptCompile Include="js\libs\GL\GL.ts" />
+    <Content Include="js\libs\GL\GL.js">
+      <DependentUpon>GL.ts</DependentUpon>
+    </Content>
+    <Content Include="js\libs\GL\GL.min.js">
+      <DependentUpon>GL.ts</DependentUpon>
+    </Content>
     <Content Include="js\libs\jquery\jquery-1.8.0.js" />
     <Content Include="js\libs\jquery\jquery-1.8.0.min.js" />
     <Content Include="js\libs\knockout\knockback.js" />
@@ -129,6 +147,43 @@
     <Content Include="modules\Connect\Views.js" />
     <Content Include="modules\Connect\Views.min.js" />
     <Content Include="modules\Connect\Views.ts" />
+    <Content Include="modules\Typed\Main.js">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Main.min.js">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Main.ts" />
+    <Content Include="modules\Typed\Models.js">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Models.min.js">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Models.ts" />
+    <Content Include="modules\Typed\Router.js">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Router.min.js">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Router.ts" />
+    <Content Include="modules\Typed\templates\Main.htm" />
+    <Content Include="modules\Typed\templates\templates.htm" />
+    <Content Include="modules\Typed\ViewModels.js">
+      <DependentUpon>ViewModels.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\ViewModels.min.js">
+      <DependentUpon>ViewModels.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\ViewModels.ts" />
+    <Content Include="modules\Typed\Views.js">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Views.min.js">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Views.ts" />
     <Content Include="modules\Documentation\Main.js" />
     <Content Include="modules\Documentation\Main.min.js" />
     <Content Include="modules\Documentation\Main.ts" />
@@ -165,16 +220,11 @@
     <Content Include="modules\Security\templates\nouserloggedin.htm" />
     <Content Include="modules\Security\ViewModels.js" />
     <Content Include="modules\Security\Views.js" />
+    <TypeScriptCompile Include="typings\app.d.ts" />
     <Content Include="typings\backbone.d.ts" />
-    <TypeScriptCompile Include="typings\BakBone.d.ts" />
-    <Content Include="typings\BakBone.d.js">
-      <DependentUpon>BakBone.d.ts</DependentUpon>
-    </Content>
     <Content Include="typings\jquery.d.ts" />
     <Content Include="typings\marionette.d.ts" />
     <Content Include="typings\require.d.ts" />
-    <Content Include="typings\SecondaryPhoneValidationMessageNotShownInChrome.png" />
-    <Content Include="typings\SecondaryPhoneValidationMessageNotShownInIE9.png" />
     <Content Include="typings\TypeLite.d.ts" />
     <Content Include="typings\TypeLite1.d.ts">
       <AutoGen>True</AutoGen>
@@ -187,12 +237,18 @@
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
     <Content Include="js\libs\backbone.localstorage\backbone.localstorage-1.0.min.js.map" />
-    <Content Include="js\libs\backbone.marionette\backbone.marionette.min.js.map" />
-    <Content Include="js\libs\backbone.routefilter\backbone-routefilter.min.js.map" />
+    <Content Include="js\libs\backbone.marionette\backbone.marionette.min.js.map">
+      <DependentUpon>backbone.marionette.js</DependentUpon>
+    </Content>
+    <Content Include="js\libs\backbone.routefilter\backbone-routefilter.min.js.map">
+      <DependentUpon>backbone-routefilter.js</DependentUpon>
+    </Content>
     <Content Include="js\libs\backbone.subroute\backbone-subroute.min.js.map">
       <DependentUpon>backbone-subroute.js</DependentUpon>
     </Content>
-    <Content Include="js\libs\backbone\backbone.min.js.map" />
+    <Content Include="js\libs\backbone\backbone.min.js.map">
+      <DependentUpon>backbone.js</DependentUpon>
+    </Content>
     <Content Include="js\libs\gl.js.map" />
     <Content Include="js\libs\gl.min.js.map">
       <DependentUpon>gl.js</DependentUpon>
@@ -213,13 +269,10 @@
     <Content Include="modules\Connect\ViewModels.min.js.map" />
     <Content Include="modules\Connect\Views.js.map" />
     <Content Include="modules\Connect\Views.min.js.map" />
-    <Content Include="typings\example-jquery-shim-master.zip" />
-    <Content Include="typings\monochromatic_iconset__1_by_aipotudeng-d3d73to.zip" />
     <Content Include="typings\TypeLite.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite1.d.ts</LastGenOutput>
     </Content>
-    <Content Include="typings\WebEssentials.vsix" />
     <Content Include="vwd.webinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +298,30 @@
     <Content Include="modules\Documentation\ViewModels.min.js.map" />
     <Content Include="modules\Documentation\Views.js.map" />
     <Content Include="modules\Documentation\Views.min.js.map" />
+    <Content Include="modules\Typed\Main.js.map">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Router.js.map">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Views.js.map">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Models.js.map">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\ViewModels.js.map">
+      <DependentUpon>ViewModels.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Views.min.js.map">
+      <DependentUpon>Views.js</DependentUpon>
+    </Content>
+    <Content Include="modules\Typed\Router.min.js.map">
+      <DependentUpon>Router.js</DependentUpon>
+    </Content>
+    <Content Include="js\libs\GL\GL.js.map">
+      <DependentUpon>GL.ts</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

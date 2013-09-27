@@ -1,4 +1,5 @@
-﻿define([
+﻿
+define([
 // Libs
 	"namespace",
 	"backbone",
@@ -40,6 +41,9 @@ function (namespace, Backbone, Marionette, $, _, ko, kb) {
                         "IsDefault": false
                     }, {
                         "ModName": "Connect",
+                        "IsDefault": false
+                    }, {
+                        "ModName": "Typed",
                         "IsDefault": true
                     }],
                     "Message": null,

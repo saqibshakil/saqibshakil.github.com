@@ -36,12 +36,25 @@ function (namespace, Backbone, Marionette, $, _) {
                         alert("Module " + module + " is not installed. Please check Back with the Administrator");
                         return;
                     }
-                    mod._isInitialized = false;
-                    mod.start();
+                    if (mod.Module == null) {
+                        mod._isInitialized = false;
+                        mod.start();
 
-                    var router = eval('app.' + module + 'Router');
-                    if (router == null)
-                        router = new mod.Router(module + '/', { controller: mod.Controller});
+                        var router = eval('app.' + module + 'Router');
+                        if (router == null)
+                            router = new mod.Router(module + '/', { controller: mod.Controller });
+                    }
+                    else
+                    {
+                        mod.Module._isInitialized = false;
+                        mod.Module.start();
+
+                        var router = eval('app.' + module + 'Router');
+                        if (router == null)
+                            router = new mod.Module.Router(module + '/', { controller: mod.Controller });
+                    }
+
+                    
 
                 });
             },

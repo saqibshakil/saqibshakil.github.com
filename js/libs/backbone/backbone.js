@@ -1234,7 +1234,8 @@
         //       ...
         //     });
         //
-        route: function(route, name, callback) {
+        route: function (route, name, callback) {
+            debugger;
             if (!_.isRegExp(route)) route = this._routeToRegExp(route);
             if (_.isFunction(name)) {
                 callback = name;

@@ -42,7 +42,15 @@
             // the before and after filters as well as the original callback that
             // was passed in.
             if (!callback) {
-                callback = this[name];
+                if (this.Controller) {
+                    this.isControllerUsed = true;
+                    callback = this.Controller[name];
+                }
+                if (!callback)
+                {
+                    this.isControllerUsed = false;
+                    callback = this[name];
+                }
             }
 
             // Create a new callback to replace the original callback that calls
@@ -63,7 +71,7 @@
                 // and after filters will be called whether or not an actual
                 // callback function is supplied to handle a given route.
                 if (callback) {
-                    callback.apply(this, arguments);
+                    callback.apply(this.isControllerUsed ? this.Controller : this, arguments);
                 }
 
                 // Call the after filter.

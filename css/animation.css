@@ -1,39 +1,57 @@
-﻿.baseAnimation {
-       -webkit-transition: -webkit-transform s;
-       -moz-transition: -moz-transform 1s;
-       -o-transition: -o-transform 1s;
-       transition: transform 1s;
-       -webkit-transform-style: preserve-3d;
-       -moz-transform-style: preserve-3d;
-       -o-transform-style: preserve-3d;
-       transform-style: preserve-3d;
-       -webkit-transform-origin: right center;
-       -moz-transform-origin: right center;
-       -o-transform-origin: right center;
-       transform-origin: right center;
+﻿.baseAnimation
+{
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all .25s  linear;
+    -moz-transition: all .25s  linear;
+    -o-transition: all .25s  linear;
+    -ms-transition: all .25s  linear;
+    transition: all .25s  linear;
+    -webkit-transform-origin: 50% 0%;
+    -moz-transform-origin: 50% 0%;
+    -o-transform-origin: 50% 0%;
+    -ms-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
 }
 
 
-.loaded {
-       -webkit-transform: translateX(+50%) rotateY(76deg);
-       -moz-transform: translateX(+50%) rotateY(76deg);
-       -o-transform: translateX(+50%) rotateY(76deg);
-       transform: translateX(+50%) rotateY(76deg);
+.loaded
+{
+    display: none;
+
+    -webkit-transform: rotateY(90deg);
+    -moz-transform: rotateY(90deg);
+    -o-transform: rotateY(90deg);
+    -ms-transform: rotateY(90deg);
+    transform: rotateY(90deg);
 }
 
 div.ondisplay
 {
+    display: block;
 
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
 }
-.unloaded {
-       -webkit-transform: translateX(-50%) rotateY(-90deg);
-       -moz-transform: translateX(-50%) rotateY(-90deg);
-       -o-transform: translateX(-50%) rotateY(-90deg);
-       transform: translateX(-50%) rotateY(-90deg);
+
+.unloaded
+{
+    -webkit-transform: rotateY(-90deg);
+    -moz-transform: rotateY(-90deg);
+    -o-transform: rotateY(-90deg);
+    -ms-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
 }
 
 
-.slideinoutloaded {
+.slideinoutloaded
+{
     margin-left: -1000px;
     margin-right: 1000px;
 }
@@ -43,47 +61,335 @@ div.slideinoutondisplay
     margin-right: 0px;
     margin-left: 0px;
 }
-.slideinoutunloaded {
+
+.slideinoutunloaded
+{
     margin-left: 1000px;
     margin-right: -1000px;
 }
 
-#app_main_content{
-    
-    width:100%;
-    padding:5px;
-    margin:5px;
-    
-    overflow:hidden;
+#app_main_content
+{
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    overflow: hidden;
 }
 
-#card {
-       width: 100%;
-       height: 100%;
-       position: absolute;
-       -webkit-transition: -webkit-transform .25s;
-       -moz-transition: -moz-transform .25s;
-       -o-transition: -o-transform .25s;
-       transition: transform .25s;
-       -webkit-transform-style: preserve-3d;
-       -moz-transform-style: preserve-3d;
-       -o-transform-style: preserve-3d;
-       transform-style: preserve-3d;
-       -webkit-transform-origin: right center;
-       -moz-transform-origin: right center;
-       -o-transform-origin: right center;
-       transform-origin: right center;
-   }
-   #card.flipped {
-       -webkit-transform: translateX(-50%) rotateY(-90deg);
-       -moz-transform: translateX(-50%) rotateY(-90deg);
-       -o-transform: translateX(-50%) rotateY(-90deg);
-       transform: translateX(-50%) rotateY(-90deg);
-   }
+#card
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition: -webkit-transform .25s;
+    -moz-transition: -moz-transform .25s;
+    -o-transition: -o-transform .25s;
+    transition: transform .25s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: right center;
+    -moz-transform-origin: right center;
+    -o-transform-origin: right center;
+    -ms-transform-origin: right center;
+    transform-origin: right center;
+}
 
-    #card.flippedin {
-       -webkit-transform: translateX(+50%) rotateY(76deg);
-       -moz-transform: translateX(+50%) rotateY(76deg);
-       -o-transform: translateX(+50%) rotateY(76deg);
-       transform: translateX(+50%) rotateY(76deg);
-   }
+    #card.flipped
+    {
+        -webkit-transform: translateX(-50%) rotateY(-90deg);
+        -moz-transform: translateX(-50%) rotateY(-90deg);
+        -o-transform: translateX(-50%) rotateY(-90deg);
+        -ms-transform: translateX(-50%) rotateY(-90deg);
+        transform: translateX(-50%) rotateY(-90deg);
+    }
+
+    #card.flippedin
+    {
+        -webkit-transform: translateX(+50%) rotateY(76deg);
+        -moz-transform: translateX(+50%) rotateY(76deg);
+        -o-transform: translateX(+50%) rotateY(76deg);
+        -ms-transform: translateX(+50%) rotateY(76deg);
+        transform: translateX(+50%) rotateY(76deg);
+    }
+
+/*body
+        {
+            color: #333;
+            background-image: none;
+            background-attachment: scroll;
+            background-repeat: repeat;
+            background-position-x: 0%;
+            background-position-y: 0%;
+            background-size: auto;
+            background-origin: padding-box;
+            background-clip: border-box;
+            background-color: rgb(238, 238, 238);
+        }*/
+
+.CodeMirror
+{
+    height: 300px;
+    font-family: monospace;
+}
+
+.CodeMirror-scroll
+{
+    overflow: auto;
+}
+
+.CodeMirror-lines
+{
+    padding-top: 4px;
+    padding-right: 0px;
+    padding-bottom: 4px;
+    padding-left: 0px;
+}
+
+.CodeMirror pre
+{
+    padding-top: 0px;
+    padding-right: 4px;
+    padding-bottom: 0px;
+    padding-left: 4px;
+}
+
+.CodeMirror-gutters
+{
+    border-right-color: #ddd;
+    border-right-width: 1px;
+    border-right-style: solid;
+    background-color: rgb(247, 247, 247);
+}
+
+.CodeMirror-linenumber
+{
+    text-align: right;
+    color: #999;
+    padding-top: 0px;
+    padding-right: 3px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    min-width: 20px;
+}
+
+.CodeMirror div.CodeMirror-cursor
+{
+    border-left-color: black;
+    border-left-width: 1px;
+    border-left-style: solid;
+    z-index: 3;
+}
+
+.CodeMirror div.CodeMirror-secondarycursor
+{
+    border-left-color: silver;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+.cm-s-default .cm-variable
+{
+    color: black;
+}
+
+.cm-s-default .cm-property
+{
+    color: black;
+}
+
+.CodeMirror
+{
+    color: black;
+    line-height: 1;
+    overflow: hidden;
+    position: relative;
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    -webkit-background-size: auto;
+    background-size: auto;
+    -moz-background-origin: padding-box;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -moz-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    background-color: white;
+}
+
+.CodeMirror-scroll
+{
+    height: 100%;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    margin-right: -30px;
+    margin-bottom: -30px;
+    position: relative;
+    outline-width: medium;
+    outline-style: none;
+    outline-color: invert;
+}
+
+.CodeMirror-sizer
+{
+    position: relative;
+}
+
+.CodeMirror-gutters
+{
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    padding-bottom: 30px;
+    position: absolute;
+    z-index: 3;
+}
+
+.CodeMirror-gutter
+{
+    height: 100%;
+    padding-bottom: 30px;
+    margin-bottom: -32px;
+    display: inline-block;
+}
+
+.CodeMirror-gutter-elt
+{
+    position: absolute;
+    z-index: 4;
+    cursor: default;
+}
+
+.CodeMirror-lines
+{
+    cursor: text;
+}
+
+.CodeMirror pre
+{
+    color: inherit;
+    line-height: inherit;
+    overflow: visible;
+    font-family: inherit;
+    font-size: inherit;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    white-space: pre;
+    position: relative;
+    z-index: 2;
+    -ms-word-wrap: normal;
+    word-wrap: normal;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    -webkit-background-size: auto;
+    background-size: auto;
+    -moz-background-origin: padding-box;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -moz-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    background-color: transparent;
+}
+
+.CodeMirror-measure
+{
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute;
+}
+
+    .CodeMirror-measure pre
+    {
+        position: static;
+    }
+
+.CodeMirror div.CodeMirror-cursor
+{
+    width: 0px;
+    border-right-color: currentColor;
+    border-right-width: medium;
+    border-right-style: none;
+    visibility: hidden;
+    position: absolute;
+}
+
+.CodeMirror-selected
+{
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    -webkit-background-size: auto;
+    background-size: auto;
+    -moz-background-origin: padding-box;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -moz-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    background-color: rgb(217, 217, 217);
+}
+
+.CodeMirror
+{
+    height: 450px;
+    font-size: 90%;
+    margin-bottom: 6px;
+    border-top-color: #ccc;
+    border-right-color: #ccc;
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    -webkit-background-size: auto;
+    background-size: auto;
+    -moz-background-origin: padding-box;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -moz-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    background-color: white;
+}
+
+</style >

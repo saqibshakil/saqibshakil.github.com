@@ -1,4 +1,4 @@
-define([
+﻿define([
     "namespace", 
     "backbone", 
     "subroute", 
@@ -21,6 +21,9 @@ define([
             onShow: function () {
                 this.viewModel.parentView = this;
                 ko.applyBindings(this.viewModel, $(this.el)[0]);
+            },
+            onClose: function () {
+                ko.cleanNode($(this.el)[0]);
             }
         });
         GL.Views.MvvmView = GL.Views.KnockOutMvvmView;
@@ -121,11 +124,12 @@ define([
             };
         };
         GL.ModuleRouter = Backbone.SubRoute.extend({
-            before: function (route) {
+            before: function () {
                 var loginToken = "";
                 if(GL.GetLoginToken) {
                     loginToken = GL.GetLoginToken();
                 }
+                var route = location.hash.replace("#", "");
                 if(loginToken == "") {
                     this.navigate("/Security/Login/" + route, true);
                     return false;
@@ -160,10 +164,16 @@ define([
             },
             showModal: function (view) {
                 view.on("close", this.hideModal, this);
-                this.$el.parent().modal('show');
+                this.$el.parent().parent().parent().modal('show');
+                this.$el.parent().parent().parent().on('hidden.bs.modal', function () {
+                    view.close();
+                });
             },
             hideModal: function () {
-                this.$el.parent().modal('hide');
+                this.$el.parent().parent().parent().modal('hide');
+            },
+            onClose: function () {
+                this.off("show", this.showModal);
             }
         });
         GL.TransitionRegion = Backbone.Marionette.Region.extend({
@@ -222,6 +232,17 @@ define([
                 view.$el.css(styles);
             },
             show: function (view) {
+                var _this = this;
+                this.ensureEl();
+                if(this.$el.length === 0) {
+                    setTimeout(function () {
+                        return _this.show(view);
+                    }, 50);
+                } else {
+                    this.delegatedshow(view);
+                }
+            },
+            delegatedshow: function (view) {
                 var self = this;
                 this.ensureEl();
                 var isViewClosed = view.isClosed || _.isUndefined(view.$el) || this.currentView == undefined;
@@ -276,11 +297,13 @@ define([
                 return ((style.webkitTransition) !== undefined || (style.MozTransition) !== undefined || (style.OTransition) !== undefined || (style.MsTransition) !== undefined || (style.transition) !== undefined);
             }
         });
-        GL.BookTransitionRegion = GL.TransitionRegion.extend({
+        GL.SubTransitionRegion = GL.TransitionRegion.extend({
+            initialize: function () {
+            },
             addBaseAnimate: function (view) {
                 view.$el.addClass("baseAnimation");
             },
-            addTransitionInit: function (view) {
+            addTransitionInit: function (view, region) {
                 view.$el.addClass("loaded");
             },
             removeTransitionInit: function (view) {
@@ -299,6 +322,50 @@ define([
                 view.$el.removeClass("unloaded");
             }
         });
+        Marionette.Region.prototype.delegatedshow = Marionette.Region.prototype.show;
+        Marionette.Region.prototype.show = function (view) {
+            var _this = this;
+            this.ensureEl();
+            if(this.$el.length === 0) {
+                setTimeout(function () {
+                    return _this.show(view);
+                }, 50);
+            } else {
+                this.delegatedshow(view);
+            }
+        };
+        Backbone.Router.prototype.route = function (route, name, callback) {
+            if(!_.isRegExp(route)) {
+                route = this._routeToRegExp(route);
+            }
+            if(_.isFunction(name)) {
+                callback = name;
+                name = '';
+            }
+            if(!callback) {
+                if (this.Controller) {
+                    this.isControllerUsed = false;
+                    callback = this.Controller[name];
+                }
+                if (!callback) {
+                    this.isControllerUsed = false;
+                    callback = this[name];
+                }
+                    
+            }
+            var router = this;
+            Backbone.history.route(route, function (fragment) {
+                var args = router._extractParameters(route, fragment);
+                callback && callback.apply(router.isControllerUsed ? router.Controller : router, args);
+                router.trigger.apply(router, [
+                    'route:' + name
+                ].concat(args));
+                router.trigger('route', name, args);
+                Backbone.history.trigger('route', router, name, args);
+            });
+            return this;
+        };
         return app.GL;
     });
 });
+//@ sourceMappingURL=gl.js.map

@@ -123,9 +123,9 @@ declare module Marionette {
     class Region extends Backbone.Events {
 
         static buildRegion(regionConfig, defaultRegionType): Region;
-
+        currentView: View;
         el: any;
-
+        $el: any;
         show(view: Backbone.View): void;
         ensureEl(): void;
         open(view: Backbone.View): void;
@@ -199,7 +199,7 @@ declare module Marionette {
         configureTriggers(): any;
         delegateEvents(events?: any): any;
         undelegateEvents();
-
+        isClosed: bool;
         close();
         bindUIElements();
         unbindUIElements();
@@ -210,12 +210,13 @@ declare module Marionette {
     class ItemView extends View {
 
         constructor(options?: any);
-
+        modelEvents: any;
         ui: any;
-
+        isClosed: bool;
         serializeData(): any;
         render(): ItemView;
         close();
+        template: any;
     }
 
     class CollectionView extends View {
@@ -238,7 +239,7 @@ declare module Marionette {
         buildItemView(item: any, ItemViewType: any, itemViewOptions: any): any;
         removeItemView(item: any);
         removeChildView(view: View);
-
+        appendHtml(collectionView: any, itemView: any, index: any);
         checkEmpty();
 
         appendHtml(collectionView: View, itemView: View, index: Number);
@@ -253,16 +254,17 @@ declare module Marionette {
 
         itemView: any;
         itemViewContainer: string;
-
+        template: any;
 		render(): CompositeView;
-        appendHtml(cv: any, iv: any);
+		getItemViewContainer(containerView: any);
         renderModel(): any;
     }
 
     class Layout extends ItemView {
 
         constructor(options?: any);
-
+        template: any;
+        regions: any;
         addRegion(name: string, definition: any): Region;
         addRegions(regions: any): any;
 		render(): Layout;

@@ -43,10 +43,6 @@ function (namespace, GL, Backbone, Marionette, $, _) {
 
             },
 
-            before: function (route) {
-                //this.initializeLayout();
-                return true;
-            },
             /*
             * Change the active element in the topbar 
             */

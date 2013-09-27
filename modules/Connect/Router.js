@@ -25,9 +25,6 @@
                 "home": "home",
                 "*else": "gotoHome"
             },
-            before: function (route) {
-                return true;
-            },
             gotoHome: function (route) {
                 alert(route);
             }

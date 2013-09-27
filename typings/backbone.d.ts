@@ -141,6 +141,9 @@ declare module Backbone {
         omit(...keys: string[]): any;
     }
 
+    class SubRoute extends Router {
+
+    }
     class Collection extends ModelBase {
 
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
@@ -243,7 +246,7 @@ declare module Backbone {
     }
 
     class Router extends Events implements OptionalRoutes {
-
+        
         static extend(properties: any, classProperties?: any): any; // do not use, prefer TypeScript's extend functionality
 
         constructor(options?: RouterOptions);

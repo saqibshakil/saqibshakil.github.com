@@ -1,0 +1,62 @@
+﻿<templates>
+<script id="row-template" type="text/html">
+    <div class= "col-sm-6 col-md-6">
+        <div class="well">
+  
+            <div>ID :<a href="#Typed/d/Detail/<%= ID %>"><%= ID %></a></div>
+            <div>Name :<%= Name %></div>
+            <div>Father Name :<%= FName %></div>
+        </div>
+    </div>
+</script>
+
+<script id="table-template" type="text/html">
+    
+  <legend>Grid</legend>
+  <div class="col-sm-12 col-md-12" id="gridView">
+
+  </div>
+    
+    
+    
+</script>
+
+    <script id="person-update" type="text/html">
+    <div>
+
+        <div class="col-sm-12 col-md-12" id="Login">
+            <fieldset title="Update Person">
+            <legend>Update Person</legend>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                    <label for="ID" class="col-lg-4 control-label">ID</label>
+                    <div class="col-lg-8">
+                      <span class="form-control" id="ID" data-bind="text: model.ID"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Name" class="col-lg-4 control-label">Name</label>
+                    <div class="col-lg-8">
+                      <input class="form-control" id="Name" data-bind="value: model.Name, valueUpdate: 'afterkeydown'">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="FName" class="col-lg-4 control-label">Father Name</label>
+                    <div class="col-lg-8">
+                      <input class="form-control" id="FName" data-bind="value: model.FName">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-4">
+                      <button type="submit" class="btn btn-default" data-bind="click: Update">Update</button>
+                    </div>
+                      <div class="col-lg-offset-2 col-lg-4">
+                      <button type="submit" class="btn btn-default" data-bind="click: SetDefaultName">Set Default Name</button>
+                    </div>
+                  </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+        </script>
+</templates>
