@@ -322,6 +322,9 @@
     <Content Include="js\libs\GL\GL.js.map">
       <DependentUpon>GL.ts</DependentUpon>
     </Content>
+    <Content Include="js\libs\GL\GL.min.js.map">
+      <DependentUpon>GL.js</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

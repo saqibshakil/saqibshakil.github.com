@@ -1,4 +1,4 @@
-﻿define([
+define([
     "namespace", 
     "backbone", 
     "subroute", 
@@ -343,20 +343,15 @@
                 name = '';
             }
             if(!callback) {
-                if (this.Controller) {
-                    this.isControllerUsed = false;
+                if(this.Controller) {
                     callback = this.Controller[name];
                 }
-                if (!callback) {
-                    this.isControllerUsed = false;
-                    callback = this[name];
-                }
-                    
+                callback = this[name];
             }
             var router = this;
             Backbone.history.route(route, function (fragment) {
                 var args = router._extractParameters(route, fragment);
-                callback && callback.apply(router.isControllerUsed ? router.Controller : router, args);
+                callback && callback.apply(router, args);
                 router.trigger.apply(router, [
                     'route:' + name
                 ].concat(args));

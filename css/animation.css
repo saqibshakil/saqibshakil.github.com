@@ -20,7 +20,6 @@
 
 .loaded
 {
-    display: none;
 
     -webkit-transform: rotateY(90deg);
     -moz-transform: rotateY(90deg);
@@ -31,7 +30,6 @@
 
 div.ondisplay
 {
-    display: block;
 
     -webkit-transform: rotateY(0deg);
     -moz-transform: rotateY(0deg);

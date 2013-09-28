@@ -3,15 +3,11 @@
 /// <amd-dependency path="namespace"/>
 /// <amd-dependency path="backbone"/>
 /// <amd-dependency path="marionette"/>
-/// <amd-dependency path="jquery"/>
-/// <amd-dependency path="underscore"/>
 /// <amd-dependency path="./Router"/>
 
 var namespace = require("namespace");
 var Backbone = require("backbone");
 var Marionette = require("marionette"); 
-var $ = require("jquery");
-var _ = require("underscore");
 
 // Shorthand the application namespace
 var app = namespace.app;

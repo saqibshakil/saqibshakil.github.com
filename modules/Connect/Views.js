@@ -1,4 +1,4 @@
-﻿define([
+define([
     "gl", 
     "namespace", 
     "backbone", 

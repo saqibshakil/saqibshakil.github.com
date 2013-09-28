@@ -1,9 +1,9 @@
-﻿var __extends = this.__extends || function (d, b) {
+var __extends = this.__extends || function (d, b) {
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "./Views", "./Models", "./ViewModels", "namespace", "backbone", "namespace", "marionette", "jquery", "underscore", "subroute", "routefilter"], function(require, exports, __Views__, __Models__, __ViewModels__) {
+define(["require", "exports", "./Views", "./Models", "./ViewModels", "../../js/libs/GL/GL", "namespace", "backbone", "namespace", "marionette", "underscore"], function(require, exports, __Views__, __Models__, __ViewModels__, __GL__) {
     var namespace = require("namespace");
     var Backbone = require("backbone");
     var Marionette = require("marionette");
@@ -14,6 +14,8 @@ define(["require", "exports", "./Views", "./Models", "./ViewModels", "namespace"
     var Models = __Models__;
 
     var ViewModels = __ViewModels__;
+
+    var GL = __GL__;
 
     var app = namespace.app;
     var Typed = app.module("Typed");
@@ -32,7 +34,7 @@ define(["require", "exports", "./Views", "./Models", "./ViewModels", "namespace"
             return true;
         };
         return Router;
-    })(app.GL.ModuleRouter);
+    })(GL.ModuleRouter);
     exports.Router = Router;    
     var Controller = (function () {
         function Controller() { }

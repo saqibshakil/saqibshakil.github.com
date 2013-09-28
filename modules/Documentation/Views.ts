@@ -28,7 +28,10 @@ function (GL, namespace, Backbone, Marionette, $, _, MainTemplate, MenuTemplate)
             template: MainTemplate,
             regions: {
                 menu: "#menu",
-                content: "#content"
+                content: {
+                    selector: "#content",
+                    regionType: app.GL.SubTransitionRegion
+                }
             },
             onRender: function() {
                 this.menu.show(new Documentation.Views.Menu());

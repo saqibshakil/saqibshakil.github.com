@@ -7,14 +7,12 @@
 // For each js file you need to access from typescript you need an amd-dependency
 /// <amd-dependency path="namespace"/>
 /// <amd-dependency path="backbone"/>
-/// <amd-dependency path="namespace"/>
 /// <amd-dependency path="marionette"/>
 /// <amd-dependency path="jquery"/>
 /// <amd-dependency path="underscore"/> 
 /// <amd-dependency path="text!./templates/Main.htm"/>
 /// <amd-dependency path="text!./templates/templates.htm"/>
 
-var namespace = require("namespace");
 var Backbone = require("backbone");
 var Marionette = require("marionette");
 var $ = require("jquery");
@@ -22,23 +20,22 @@ var _ = require("underscore");
 var MainTemplate = require("text!./templates/Main.htm");
 var Templates = require("text!./templates/templates.htm");
 
-// Shorthand the application namespace
-var app = namespace.app;
 import GL = module("../../js/libs/GL/GL");
-// Create a module to hide our private implementation details 
-app.module("Typed");
 
 
 export class MainView extends Marionette.Layout {
+    chartdiv: Marionette.Region;
+    grid: Marionette.Region;
+    detail: GL.Regions.SubTransitionRegion;
 
     constructor(options?) {
         this.template = MainTemplate;
-        this.regions = {
+        this.regions = { 
             chartdiv: "#chartdiv",
             grid: "#grid",
             detail: {
                 selector: "#detail",
-                regionType: app.GL.SubTransitionRegion
+                regionType: GL.Regions.SubTransitionRegion
             }
         };
         super(options);
@@ -46,7 +43,7 @@ export class MainView extends Marionette.Layout {
    
 }
 
-export class RowView extends Marionette.ItemView {
+export class RowView extends GL.Views.ItemView {
     constructor(options?: any) {
         this.modelEvents = {
             "change": "render"
@@ -58,7 +55,7 @@ export class RowView extends Marionette.ItemView {
 
 }
 
-export class TableView extends GL.Views.CompositeView {
+export class TableView extends Marionette.CompositeView {
     constructor(options?: any) {
         this.itemView = RowView;
         this.itemViewContainer = "#gridView";
@@ -69,7 +66,7 @@ export class TableView extends GL.Views.CompositeView {
 
 };
 
-export class PersonView extends app.GL.Views.MvvmView {
+export class PersonView extends GL.Views.MvvmView {
 
     constructor(options?) {
         this.template = $(Templates).find("#person-update")[0].outerHTML;

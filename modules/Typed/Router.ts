@@ -6,10 +6,7 @@
 /// <amd-dependency path="backbone"/>
 /// <amd-dependency path="namespace"/>
 /// <amd-dependency path="marionette"/>
-/// <amd-dependency path="jquery"/>
 /// <amd-dependency path="underscore"/> 
-/// <amd-dependency path="subroute"/>
-/// <amd-dependency path="routefilter"/>
 
 
 var namespace = require("namespace");
@@ -21,7 +18,7 @@ var _ = require("underscore");
 import Views = module("./Views");
 import Models = module("./Models");
 import ViewModels = module("./ViewModels");
-
+import GL = module("../../js/libs/GL/GL");
 // Shorthand the application namespace
 var app: app = namespace.app;
 var Typed = app.module("Typed");
@@ -29,7 +26,7 @@ var Typed = app.module("Typed");
 // Create a module to hide our private implementation details 
 
 
-export class Router extends app.GL.ModuleRouter {
+export class Router extends GL.ModuleRouter {
     routes: any;
     private Controller: Controller;
     constructor(options?: Backbone.RouterOptions) {
@@ -54,8 +51,8 @@ export class Router extends app.GL.ModuleRouter {
 
 class Controller{
     
-    Layout: any;
-    DetailView: any;
+    Layout: Views.MainView; 
+    DetailView: Views.PersonView;
     persons: Models.Persons;
     InitializeLayout() {
         if ((this.Layout !== undefined && this.Layout.isClosed == false)) {
