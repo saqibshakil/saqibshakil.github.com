@@ -1,4 +1,5 @@
 define([
+    // Libs
     "namespace", 
     "gl", 
     "backbone", 
@@ -8,7 +9,9 @@ define([
     "subroute", 
     "routefilter"
 ], function (namespace, GL, Backbone, Marionette, $, _) {
+    // Shorthand the application namespace
     var app = namespace.app;
+    // Create a module to hide our private implementation details
     app.module("Connect", function (Connect, app, Backbone, Marionette, $, _) {
         Connect.Controller = {
             home: function () {
@@ -25,7 +28,10 @@ define([
                 "home": "home",
                 "*else": "gotoHome"
             },
-            gotoHome: function (route) {
+            gotoHome: /*
+            * Change the active element in the topbar
+            */
+            function (route) {
                 alert(route);
             }
         }, Connect.Controller));

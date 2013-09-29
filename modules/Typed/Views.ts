@@ -1,5 +1,4 @@
-﻿
-/// <reference path="../../typings/underscore.d.ts" />
+﻿/// <reference path="../../typings/underscore.d.ts" />
 /// <reference path="../../typings/marionette.d.ts" />
 /// <reference path="../../typings/app.d.ts" />
 /// <reference path="../../typings/backbone.d.ts" />
@@ -57,9 +56,12 @@ export class RowView extends GL.Views.ItemView {
 
 export class TableView extends Marionette.CompositeView {
     constructor(options?: any) {
+        //this.collectionEvents = {
+        //    "add remove sort": "render"
+        //};
         this.itemView = RowView;
         this.itemViewContainer = "#gridView";
-        this.template = $(Templates).find("#table-template")[0].outerHTML;
+        this.template = ($(Templates).find("#table-template")[0].outerHTML);
         super(options);
     }
 
@@ -69,7 +71,7 @@ export class TableView extends Marionette.CompositeView {
 export class PersonView extends GL.Views.MvvmView {
 
     constructor(options?) {
-        this.template = $(Templates).find("#person-update")[0].outerHTML;
+        this.template = ($(Templates).find("#person-update")[0].outerHTML);
         super(options);
     }
 

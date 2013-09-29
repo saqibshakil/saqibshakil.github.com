@@ -1,4 +1,8 @@
+/// <reference path="../../typings/require.d.ts" />
+/// <reference path="../../typings/jquery.d.ts" />
+/// <reference path="../../typings/marionette.d.ts" />
 define([
+    // Libs
     "namespace", 
     "backbone", 
     "subroute", 
@@ -8,10 +12,41 @@ define([
     "knockout", 
     
 ], function (namespace, Backbone, s, Marionette, $, _, ko) {
+    // Shorthand the application namespace
     var app = namespace.app;
+    // Create a module to hide our private implementation details
     app.module("GL", function (GL, app, Backbone, Marionette, $, _, namespace, contentTemplate, todoItemTemplate, TodosModule) {
         GL.Views = {
         };
+        //GL.Views.KendoMvvmView = Marionette.ItemView.extend({
+        //    onShow: function () {
+        //        this.bind();
+        //    },
+        //    bind: function () {
+        //        kendo.bind(this.$el, this.viewModel);
+        //        this.getValidationAttributesFromModel(this.viewModel.model.fields);
+        //        this.viewModel.validator = this.$el.kendoValidator().data("kendoValidator");
+        //    },
+        //    getValidationAttributesFromModel: function (myFields) {
+        //        var myValidatedFields = [];
+        //        var obj = null;
+        //        $.each(myFields, function (fieldName) {
+        //            if (this.validation) {
+        //                var obj = {
+        //                    fieldName: fieldName,
+        //                    validation: this.validation
+        //                };
+        //                myValidatedFields.push(obj);
+        //            }
+        //        });
+        //        this.addValidationAttributes(myValidatedFields);
+        //    },
+        //    addValidationAttributes: function (myValidatedFields) {
+        //        $.each(myValidatedFields, function (index) {
+        //            $('#' + this.fieldName).attr(this.validation);
+        //        });
+        //    }
+        //});
         GL.Views.KnockOutMvvmView = Marionette.ItemView.extend({
             initialize: function (options) {
                 if(options.viewModel !== undefined) {
@@ -155,6 +190,7 @@ define([
         GL.ModalRegion = Backbone.Marionette.Region.extend({
             el: "#modal",
             initialize: function () {
+                //Backbone.Marionette.Region.prototype.constructor.apply(this, arguments);
                 this.on("show", this.showModal, this);
             },
             getEl: function (selector) {

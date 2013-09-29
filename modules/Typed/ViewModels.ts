@@ -22,15 +22,16 @@ var ko = require("knockout");
 export class PersonViewModel {
     controller: any;
     model: any;
-
+    bbModel: Backbone.Model;
     constructor(model) {
         this.model = kb.viewModel(model);
+        this.bbModel = model;
     }
 
     Update() {
         //Some code to post data to server and get results
         //You can access the Model as json using self.parentView.model
-        this.controller.Save();
+        this.controller.Save.apply(this.controller,[this.bbModel]);
     };
 
     SetDefaultName() {

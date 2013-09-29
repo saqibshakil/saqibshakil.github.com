@@ -14,9 +14,13 @@ var app = namespace.app;
 // Create a module to hide our private implementation details 
 
 export class Person extends Backbone.Model {
-    ID = "";
-    Name = "";
-    FName = "";
+    defaults() {
+        return {
+            id : "",
+            Name : "",
+            FName : ""
+        }
+    }
 };
 
 export class Persons extends Backbone.Collection {

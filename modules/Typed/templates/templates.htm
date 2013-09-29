@@ -1,20 +1,42 @@
 ﻿<templates>
-<div class= "col-sm-6 col-md-6" id="row-template">
+<div class= "col-sm-6 col-md-6" id="item-template" >
     <div class="well">
   
-        <div>ID :<a href="#Typed/d/Detail/<%= ID %>"><%= ID %></a></div>
+        <div>ID :<a href="#Typed/d/Detail/<%= ID %>"><%= id %></a></div>
         <div>Name :<%= Name %></div>
         <div>Father Name :<%= FName %></div>
     </div>
 </div>
 
-<script id="table-template" type="text/html">
+<script id="grid-template" type="text/html">
     
   <legend>Grid</legend>
   <div class="col-sm-12 col-md-12" id="gridView">
 
   </div>
     
+    
+    
+</script>
+<table>
+<tr id="row-template">
+  
+        <td><a href="#Typed/d/Detail/<%= id %>"><%= id %></a></td>
+        <td><%= Name %></td>
+        <td><%= FName %></td>
+</tr>
+</table>
+
+<script id="table-template" type="text/html">
+    
+  <legend>Grid</legend>
+  <table class="table table-striped table-hover" >
+      <thead><tr><th>ID</th><th>Name</th><th>Last Name</th></tr></thead>
+      <tbody id="gridView"></tbody>
+  </table>
+  <div class="col-lg-offset-2 col-lg-4">
+    <a type="submit" class="btn btn-default" href="#Typed/AddNew">Add New</a>
+  </div>
     
     
 </script>
@@ -29,7 +51,7 @@
                     <div class="form-group">
                     <label for="ID" class="col-lg-4 control-label">ID</label>
                     <div class="col-lg-8">
-                      <span class="form-control" id="ID" data-bind="text: model.ID"></span>
+                      <span class="form-control" id="ID" data-bind="text: model.id"></span>
                     </div>
                   </div>
                   <div class="form-group">

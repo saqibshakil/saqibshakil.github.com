@@ -33,6 +33,7 @@ export class Router extends GL.ModuleRouter {
         this.Controller = new Controller();
         this.routes = {
             "d/Detail/:id": "LoadDetail",
+            "AddNew": "AddNew",
             "*actions": "home"
         }
 
@@ -67,25 +68,26 @@ class Controller{
     }
 
     LoadGrid() {
-        this.persons = new Models.Persons(
-            [{
-                ID: "0",
-                Name: "Saqib",
-                FName: "Shakil"
-            }, {
-                ID: "1",
-                Name: "Talha",
-                FName: "Yousuf"
-            }, {
-                ID: "2",
-                Name: "Nouman",
-                FName: "Berlas"
-            }, {
-                ID: "3",
-                Name: "Aqeel",
-                FName: "Khandwala"
-            }]
-        );
+        if(this.persons==undefined)
+            this.persons =  new Models.Persons(
+                [{
+                    id: "0",
+                    Name: "Saqib",
+                    FName: "Shakil"
+                }, {
+                    id: "1",
+                    Name: "Talha",
+                    FName: "Yousuf"
+                }, {
+                    id: "2",
+                    Name: "Nouman",
+                    FName: "Berlas"
+                }, {
+                    id: "3",
+                    Name: "Aqeel",
+                    FName: "Khandwala"
+                }]
+            );
 
         var grid = new Views.TableView({ collection: this.persons });
 
@@ -93,7 +95,7 @@ class Controller{
     }
 
     LoadDetail(id) {
-        var model = _.find(this.persons.models, (p) => p.attributes.ID === id);
+        var model = _.find(this.persons.models, p => p.id == id);
         var viewModel = new ViewModels.PersonViewModel(model);
         viewModel.controller = this;
 
@@ -101,17 +103,35 @@ class Controller{
             model: model,
             viewModel: viewModel
         });
-        this.DetailView = view;
-
-        this.Layout.detail.show(view)
-
-        //app.modal.show(view);
+        
+        this.Layout.detail.show(view);
 
     }
 
-    Save() {
-        //this.DetailView.close()
-        this.Layout.detail.promiseClose();
+
+    Save(bbModel: Backbone.Model) {
+        if (bbModel.isNew() || bbModel.id=="")
+        {
+            var maxID: number;
+            maxID = _.max(this.persons.models, p => p.id).id * 1;
+            bbModel.set("id", maxID + 1);
+            this.persons.add(bbModel);
+        }
+        this.Layout.detail.closeView(); 
+    }
+
+
+    AddNew() {
+        var model = new Models.Person();
+        var viewModel = new ViewModels.PersonViewModel(model);
+        viewModel.controller = this;
+
+        var view = new Views.PersonView({
+            model: model,
+            viewModel: viewModel
+        });
+
+        this.Layout.detail.show(view);
     }
 
     home() {

@@ -15,14 +15,13 @@ var namespace = require("namespace");
 var Backbone = require("backbone");
 var Marionette = require("marionette");
 var $ = require("jquery");
-var _ = require("underscore"); 
+var _ = require("underscore");
 
 
 var app = namespace.app;
-export module Views{
-    export class MvvmView extends Marionette.ItemView
-    {
-        viewModel: any; 
+export module Views {
+    export class MvvmView extends Marionette.ItemView {
+        viewModel: any;
         initialize(options) {
             if (options.viewModel !== undefined) {
                 this.viewModel = options.viewModel;
@@ -38,19 +37,23 @@ export module Views{
         };
 
     };
+
     export class ItemView extends Marionette.ItemView {
+        templateId: string;
         constructor(options?: any) {
-            
-            this.tagName = $(this.template)[0].nodeName; 
+            this.tagName = $(this.template).attr("tagName");
+            if (this.tagName == null || this.tagName == "")
+                this.tagName = $(this.template)[0].nodeName;
             this.className = $(this.template).attr("class");
+
             super(options);
         }
+
     }
 }
 
-export class ModuleRouter extends Backbone.SubRoute
-{
-    beforeRoute(route){};
+export class ModuleRouter extends Backbone.SubRoute {
+    beforeRoute(route) { };
     before() {
 
         var loginToken = "";
@@ -171,6 +174,8 @@ export module Regions {
             };
             view.$el.css(styles);
         }
+
+        transitionEvent = "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd";
         show(view) {
             this.ensureEl();
             if (this.$el.length === 0) {
@@ -181,54 +186,53 @@ export module Regions {
             }
         }
         delegatedshow(view) {
-            var self = this;
             this.ensureEl();
             var isViewClosed = view.isClosed || _.isUndefined(view.$el) || this.currentView == undefined;
             var isDifferentView = view !== this.currentView;
             if (isDifferentView) {
-                this.promiseClose(view).done(function () {
-                    self.addBaseAnimate(view);
-                    self.addTransitionInit(view, self);
+                this.promiseClose(view).done(() => {
+                    this.addBaseAnimate(view);
+                    this.addTransitionInit(view, self);
                     view.render();
                     if (isDifferentView || isViewClosed) {
-                        self.open(view);
+                        this.open(view);
                     }
-                    self.currentView = view;
-                    view.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
-                        view.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
-                        self.removeTransitionInit(view);
+                    this.currentView = view;
+                    view.$el.on(this.transitionEvent, () => {
+                        view.$el.off(this.transitionEvent);
+                        this.removeTransitionInit(view);
                     });
-                    setTimeout(() => self.addTransitionIn(view), 1);
-                    Marionette.triggerMethod.call(self, "show", view);
+                    setTimeout(() => this.addTransitionIn(view), 1);
+                    Marionette.triggerMethod.call(this, "show", view);
                     Marionette.triggerMethod.call(view, "show");
                 });
             }
         }
-        promiseClose(view) {
-            var self = this;
+        promiseClose(view?) {
             var deferred = $.Deferred();
-            if (!self.currentView || self.currentView.isClosed) {
+            if (!this.currentView || this.currentView.isClosed) {
                 deferred.resolve();
                 return deferred.promise();
             }
             var cView = this.currentView;
-            cView.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
-                cView.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
-                self.removeTransitionOut(cView);
-                self.close();
+            cView.$el.on(this.transitionEvent, () => {
+                cView.$el.off(this.transitionEvent);
+                this.removeTransitionOut(cView);
+                this.close();
                 deferred.resolve();
             });
-            self.removeTransitionIn(cView);
-            self.addTransitionOut(cView);
-            if (!self.isTransitionSupported()) {
-                self.removeTransitionOut(cView);
-                self.close();
+            this.removeTransitionIn(cView);
+            this.addTransitionOut(cView);
+            if (!this.isTransitionSupported()) {
+                this.removeTransitionOut(cView);
+                this.close();
                 deferred.resolve();
             }
             return deferred.promise();
         }
-        close() {
-            this.promiseClose(this.currentView);
+        closeView() {
+            //this.currentView.close();
+            this.promiseClose();
         }
         isTransitionSupported() {
             var style;

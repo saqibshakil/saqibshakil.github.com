@@ -4,6 +4,17 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "underscore", "knockout"], function(require, exports) {
+    /// <reference path="../../../typings/app.d.ts" />
+    /// <reference path="../../../typings/backbone.d.ts" />
+    /// <reference path="../../../typings/marionette.d.ts" />
+    /// <reference path="../../../typings/require.d.ts" />
+    // For each js file you need to access from typescript you need an amd-dependency
+    /// <amd-dependency path="namespace"/>
+    /// <amd-dependency path="backbone"/>
+    /// <amd-dependency path="marionette"/>
+    /// <amd-dependency path="jquery"/>
+    /// <amd-dependency path="underscore"/>
+    /// <amd-dependency path="knockout"/>
     var ko = require("knockout");
     var namespace = require("namespace");
     var Backbone = require("backbone");
@@ -37,7 +48,10 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
         var ItemView = (function (_super) {
             __extends(ItemView, _super);
             function ItemView(options) {
-                this.tagName = $(this.template)[0].nodeName;
+                this.tagName = $(this.template).attr("tagName");
+                if(this.tagName == null || this.tagName == "") {
+                    this.tagName = $(this.template)[0].nodeName;
+                }
                 this.className = $(this.template).attr("class");
                         _super.call(this, options);
             }
@@ -122,6 +136,7 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
             function TransitionRegion() {
                 _super.apply(this, arguments);
 
+                this.transitionEvent = "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd";
             }
             TransitionRegion.prototype.addBaseAnimate = function (view) {
                 var styles = {
@@ -187,56 +202,57 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
                 }
             };
             TransitionRegion.prototype.delegatedshow = function (view) {
-                var self = this;
+                var _this = this;
                 this.ensureEl();
                 var isViewClosed = view.isClosed || _.isUndefined(view.$el) || this.currentView == undefined;
                 var isDifferentView = view !== this.currentView;
                 if(isDifferentView) {
                     this.promiseClose(view).done(function () {
-                        self.addBaseAnimate(view);
-                        self.addTransitionInit(view, self);
+                        _this.addBaseAnimate(view);
+                        _this.addTransitionInit(view, self);
                         view.render();
                         if(isDifferentView || isViewClosed) {
-                            self.open(view);
+                            _this.open(view);
                         }
-                        self.currentView = view;
-                        view.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
-                            view.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
-                            self.removeTransitionInit(view);
+                        _this.currentView = view;
+                        view.$el.on(_this.transitionEvent, function () {
+                            view.$el.off(_this.transitionEvent);
+                            _this.removeTransitionInit(view);
                         });
                         setTimeout(function () {
-                            return self.addTransitionIn(view);
+                            return _this.addTransitionIn(view);
                         }, 1);
-                        Marionette.triggerMethod.call(self, "show", view);
+                        Marionette.triggerMethod.call(_this, "show", view);
                         Marionette.triggerMethod.call(view, "show");
                     });
                 }
             };
             TransitionRegion.prototype.promiseClose = function (view) {
-                var self = this;
+                var _this = this;
                 var deferred = $.Deferred();
-                if(!self.currentView || self.currentView.isClosed) {
+                if(!this.currentView || this.currentView.isClosed) {
                     deferred.resolve();
                     return deferred.promise();
                 }
                 var cView = this.currentView;
-                cView.$el.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
-                    cView.$el.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
-                    self.removeTransitionOut(cView);
-                    self.close();
+                cView.$el.on(this.transitionEvent, function () {
+                    cView.$el.off(_this.transitionEvent);
+                    _this.removeTransitionOut(cView);
+                    _this.close();
                     deferred.resolve();
                 });
-                self.removeTransitionIn(cView);
-                self.addTransitionOut(cView);
-                if(!self.isTransitionSupported()) {
-                    self.removeTransitionOut(cView);
-                    self.close();
+                this.removeTransitionIn(cView);
+                this.addTransitionOut(cView);
+                if(!this.isTransitionSupported()) {
+                    this.removeTransitionOut(cView);
+                    this.close();
                     deferred.resolve();
                 }
                 return deferred.promise();
             };
-            TransitionRegion.prototype.close = function () {
-                this.promiseClose(this.currentView);
+            TransitionRegion.prototype.closeView = function () {
+                //this.currentView.close();
+                this.promiseClose();
             };
             TransitionRegion.prototype.isTransitionSupported = function () {
                 var style;
