@@ -3,7 +3,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "underscore", "knockout"], function(require, exports) {
+define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "underscore", "knockout", "knockback"], function(require, exports) {
     /// <reference path="../../../typings/app.d.ts" />
     /// <reference path="../../../typings/backbone.d.ts" />
     /// <reference path="../../../typings/marionette.d.ts" />
@@ -15,7 +15,9 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
     /// <amd-dependency path="jquery"/>
     /// <amd-dependency path="underscore"/>
     /// <amd-dependency path="knockout"/>
+    /// <amd-dependency path="knockback"/>
     var ko = require("knockout");
+    var kb = require("knockback");
     var namespace = require("namespace");
     var Backbone = require("backbone");
     var Marionette = require("marionette");
@@ -32,10 +34,10 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
             MvvmView.prototype.initialize = function (options) {
                 if(options.viewModel !== undefined) {
                     this.viewModel = options.viewModel;
+                    options.model = this.viewModel.model;
                 }
             };
             MvvmView.prototype.onShow = function () {
-                this.viewModel.parentView = this;
                 ko.applyBindings(this.viewModel, this.el);
             };
             MvvmView.prototype.onClose = function () {
@@ -298,5 +300,22 @@ define(["require", "exports", "namespace", "backbone", "marionette", "jquery", "
         ;
     })(exports.Regions || (exports.Regions = {}));
     var Regions = exports.Regions;
+    var ViewModel = (function () {
+        function ViewModel(model, controller) {
+            this.model = kb.viewModel(model);
+            this.bbModel = model;
+            this.controller = controller;
+        }
+        return ViewModel;
+    })();
+    exports.ViewModel = ViewModel;    
+    var Controller = (function () {
+        function Controller() { }
+        Controller.prototype.Call = function (funcName, args1, args2, args3, args4, args5, args6) {
+            this[funcName].call(this, args1, args2, args3, args4, args5, args6);
+        };
+        return Controller;
+    })();
+    exports.Controller = Controller;    
 })
 //@ sourceMappingURL=GL.js.map

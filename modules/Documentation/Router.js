@@ -1,4 +1,4 @@
-/// <reference path="../../typings/require.d.ts" />
+﻿/// <reference path="../../typings/require.d.ts" />
 define([
     // Libs
     "namespace", 

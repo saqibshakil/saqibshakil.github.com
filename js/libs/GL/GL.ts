@@ -9,7 +9,9 @@
 /// <amd-dependency path="jquery"/>
 /// <amd-dependency path="underscore"/>
 /// <amd-dependency path="knockout"/>
+/// <amd-dependency path="knockback"/>
 var ko = require("knockout");
+var kb = require("knockback");
 
 var namespace = require("namespace");
 var Backbone = require("backbone");
@@ -21,14 +23,14 @@ var _ = require("underscore");
 var app = namespace.app;
 export module Views {
     export class MvvmView extends Marionette.ItemView {
-        viewModel: any;
+        viewModel: ViewModel;
         initialize(options) {
             if (options.viewModel !== undefined) {
                 this.viewModel = options.viewModel;
+                options.model = this.viewModel.model;
             }
         };
         onShow() {
-            this.viewModel.parentView = this;
             ko.applyBindings(this.viewModel, this.el);
 
         }
@@ -268,4 +270,36 @@ export module Regions {
             view.$el.removeClass("unloaded");
         }
     };
+
+
+}
+
+export class ViewModel {
+    controller: Controller;
+    model: any;
+    bbModel: Backbone.Model;
+    constructor(model: Backbone.Model, controller: any) {
+        this.model = kb.viewModel(model);
+        this.bbModel = model;
+        this.controller = controller;
+    }
+}
+
+export class Controller {
+    Call(funcName: string
+        , args1?: any
+        , args2?: any
+        , args3?: any
+        , args4?: any
+        , args5?: any
+        , args6?: any) {
+        this[funcName].call(this
+            , args1
+            , args2
+            , args3
+            , args4
+            , args5
+            , args6);
+    }
+
 }

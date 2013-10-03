@@ -1,4 +1,4 @@
-// Set the require.js configuration
+﻿// Set the require.js configuration
 require.config({
     paths: //urlArgs: "bust=" + "V3",
     // If no baseUrl is explicitly set in the configuration, the default value

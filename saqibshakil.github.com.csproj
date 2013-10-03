@@ -58,6 +58,7 @@
     <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptTarget>ES3</TypeScriptTarget>
@@ -66,11 +67,13 @@
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Content\qunit.css" />
     <Content Include="css\animation.css" />
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\jasmine.css" />
     <Content Include="img\add.png" />
     <Content Include="img\bg.png" />
     <Content Include="img\busy.gif" />
@@ -131,6 +134,11 @@
     <Content Include="js\system\General\templates\main.htm" />
     <Content Include="js\system\General\Views.js" />
     <Content Include="js\system\General\Views.min.js" />
+    <Content Include="lib\jasmine-html.js" />
+    <Content Include="lib\jasmine.css" />
+    <Content Include="lib\jasmine.js" />
+    <Content Include="lib\qunit.css" />
+    <Content Include="lib\qunit.js" />
     <Content Include="modules\Connect\Main.js" />
     <Content Include="modules\Connect\Main.min.js" />
     <Content Include="modules\Connect\Main.ts" />
@@ -221,9 +229,23 @@
     <Content Include="modules\Security\ViewModels.js" />
     <Content Include="modules\Security\Views.js" />
     <TypeScriptCompile Include="typings\app.d.ts" />
+    <Content Include="Scripts\jasmine-html.js" />
+    <Content Include="Scripts\jasmine.js" />
+    <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\typings\jasmine\jasmine.d.ts" />
+    <Content Include="Scripts\typings\qunit\qunit.d.ts" />
+    <Content Include="Tests\definemocked.js" />
+    <Content Include="Tests\deps.js" />
+    <Content Include="Tests\Typed\ModelDep.js" />
+    <Content Include="Tests\Typed\ModelTests.js" />
+    <Content Include="Tests\Typed\_Chutzpah.fa1e84ea638491814cb5224b661225d4.test.html" />
     <Content Include="typings\backbone.d.ts" />
     <Content Include="typings\jquery.d.ts" />
     <Content Include="typings\marionette.d.ts" />
+    <TypeScriptCompile Include="typings\qunit.d.ts" />
+    <Content Include="typings\qunit.d.js">
+      <DependentUpon>qunit.d.ts</DependentUpon>
+    </Content>
     <Content Include="typings\require.d.ts" />
     <Content Include="typings\TypeLite.d.ts" />
     <Content Include="typings\TypeLite1.d.ts">
@@ -278,9 +300,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="modules\Connect\Router.min.js.map">
       <DependentUpon>Router.js</DependentUpon>
@@ -325,6 +345,7 @@
     <Content Include="js\libs\GL\GL.min.js.map">
       <DependentUpon>GL.js</DependentUpon>
     </Content>
+    <Content Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -232,7 +232,7 @@ declare module Marionette {
         triggerRendered();
         render(): CollectionView;
 
-        getItemView(item: any): ItemView;
+        getItemView(item: any): any;
         addItemView(item: any, ItemView: ItemView, index: Number);
         addChildViewEventForwarding(view: View);
         renderItemView(view: View, index: Number);

@@ -1,4 +1,4 @@
-define([
+﻿define([
     // Libs
     "underscore", 
     "marionette"

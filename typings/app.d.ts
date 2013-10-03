@@ -13,6 +13,7 @@ declare module app {
     }
     var content: Marionette.Region;
     var modal: Marionette.Region;
+    var Router: Backbone.Router;
     function module(name: string): any;
     var Security: any;
 }

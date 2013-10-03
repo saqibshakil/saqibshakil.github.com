@@ -1,4 +1,4 @@
-/// <reference path="../../typings/require.d.ts" />
+﻿/// <reference path="../../typings/require.d.ts" />
 /// <reference path="../../typings/jquery.d.ts" />
 /// <reference path="../../typings/marionette.d.ts" />
 define([

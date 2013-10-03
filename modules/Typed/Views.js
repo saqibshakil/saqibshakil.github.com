@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
@@ -48,23 +48,61 @@ define(["require", "exports", "../../js/libs/GL/GL", "namespace", "backbone", "m
             this.modelEvents = {
                 "change": "render"
             };
+            this.events = {
+                "click .remove": "Remove"
+            };
             this.template = $(Templates).find("#row-template")[0].outerHTML;
                 _super.call(this, options);
         }
+        RowView.prototype.Remove = function () {
+            this.model.destroy();
+        };
         return RowView;
     })(GL.Views.ItemView);
     exports.RowView = RowView;    
+    var ItemView = (function (_super) {
+        __extends(ItemView, _super);
+        function ItemView(options) {
+            this.modelEvents = {
+                "change": "render"
+            };
+            this.events = {
+                "click .remove": "Remove"
+            };
+            this.template = $(Templates).find("#item-template")[0].outerHTML;
+                _super.call(this, options);
+        }
+        ItemView.prototype.Remove = function () {
+            this.model.destroy();
+        };
+        return ItemView;
+    })(GL.Views.ItemView);
+    exports.ItemView = ItemView;    
     var TableView = (function (_super) {
         __extends(TableView, _super);
         function TableView(options) {
-            //this.collectionEvents = {
-            //    "add remove sort": "render"
-            //};
+            this.DisplayAsGrid = true;
             this.itemView = RowView;
             this.itemViewContainer = "#gridView";
-            this.template = ($(Templates).find("#table-template")[0].outerHTML);
+            this.events = {
+                "click .typeSelector": "SwitchTemplate"
+            };
                 _super.call(this, options);
         }
+        TableView.prototype.getItemView = function (item) {
+            if(this.DisplayAsGrid) {
+                return ItemView;
+            } else {
+                return RowView;
+            }
+        };
+        TableView.prototype.getTemplate = function () {
+            return this.DisplayAsGrid ? ($(Templates).find("#grid-template")[0].outerHTML) : ($(Templates).find("#table-template")[0].outerHTML);
+        };
+        TableView.prototype.SwitchTemplate = function () {
+            this.DisplayAsGrid = !this.DisplayAsGrid;
+            this.render();
+        };
         return TableView;
     })(Marionette.CompositeView);
     exports.TableView = TableView;    

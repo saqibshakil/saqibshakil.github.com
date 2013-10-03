@@ -43,26 +43,75 @@ export class MainView extends Marionette.Layout {
 }
 
 export class RowView extends GL.Views.ItemView {
+    DisplayAsGrid: bool;
+    events: any;
     constructor(options?: any) {
         this.modelEvents = {
             "change": "render"
         };
+        this.events = {
+            "click .remove": "Remove"
+        }
         this.template = $(Templates).find("#row-template")[0].outerHTML;
         super(options);
+    }
+    Remove() {
+        this.model.destroy();
+    }
+
+}
+
+export class ItemView extends GL.Views.ItemView {
+    DisplayAsGrid: bool;
+    events: any;
+    constructor(options?: any) {
+        this.modelEvents = {
+            "change": "render"
+        };
+        this.events = {
+            "click .remove": "Remove"
+        }
+        this.template = $(Templates).find("#item-template")[0].outerHTML;
+        super(options);
+    }
+
+    Remove() {
+        this.model.destroy();
     }
 
 
 }
 
 export class TableView extends Marionette.CompositeView {
+    DisplayAsGrid: bool;
+    events: any;
     constructor(options?: any) {
-        //this.collectionEvents = {
-        //    "add remove sort": "render"
-        //};
+        this.DisplayAsGrid = true;
         this.itemView = RowView;
         this.itemViewContainer = "#gridView";
-        this.template = ($(Templates).find("#table-template")[0].outerHTML);
+        this.events = {
+            "click .typeSelector": "SwitchTemplate"
+        }
         super(options);
+    }
+
+    getItemView(item?: any):any {
+        if (this.DisplayAsGrid)
+            return ItemView;
+        else
+            return RowView;
+    }
+
+    getTemplate() {
+        return this.DisplayAsGrid
+            ? ($(Templates).find("#grid-template")[0].outerHTML)
+            : ($(Templates).find("#table-template")[0].outerHTML);
+        
+    }
+
+    SwitchTemplate() {
+        this.DisplayAsGrid = !this.DisplayAsGrid;
+        this.render();
     }
 
 
@@ -72,6 +121,8 @@ export class PersonView extends GL.Views.MvvmView {
 
     constructor(options?) {
         this.template = ($(Templates).find("#person-update")[0].outerHTML);
+        
+
         super(options);
     }
 

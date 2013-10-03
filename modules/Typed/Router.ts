@@ -17,7 +17,6 @@ var _ = require("underscore");
 
 import Views = module("./Views");
 import Models = module("./Models");
-import ViewModels = module("./ViewModels");
 import GL = module("../../js/libs/GL/GL");
 // Shorthand the application namespace
 var app: app = namespace.app;
@@ -50,10 +49,9 @@ export class Router extends GL.ModuleRouter {
 }
 
 
-class Controller{
-    
-    Layout: Views.MainView; 
-    DetailView: Views.PersonView;
+class Controller extends GL.Controller {
+
+    Layout: Views.MainView;
     persons: Models.Persons;
     InitializeLayout() {
         if ((this.Layout !== undefined && this.Layout.isClosed == false)) {
@@ -68,26 +66,9 @@ class Controller{
     }
 
     LoadGrid() {
-        if(this.persons==undefined)
-            this.persons =  new Models.Persons(
-                [{
-                    id: "0",
-                    Name: "Saqib",
-                    FName: "Shakil"
-                }, {
-                    id: "1",
-                    Name: "Talha",
-                    FName: "Yousuf"
-                }, {
-                    id: "2",
-                    Name: "Nouman",
-                    FName: "Berlas"
-                }, {
-                    id: "3",
-                    Name: "Aqeel",
-                    FName: "Khandwala"
-                }]
-            );
+        if (this.persons == undefined)
+            this.persons = new Models.Persons();
+        this.persons.fetch();
 
         var grid = new Views.TableView({ collection: this.persons });
 
@@ -95,43 +76,38 @@ class Controller{
     }
 
     LoadDetail(id) {
-        var model = _.find(this.persons.models, p => p.id == id);
-        var viewModel = new ViewModels.PersonViewModel(model);
-        viewModel.controller = this;
+        var model = this.persons.get(id);
+        
+        var viewModel = new Models.PersonViewModel(model, this);
 
         var view = new Views.PersonView({
-            model: model,
             viewModel: viewModel
         });
-        
+
         this.Layout.detail.show(view);
 
     }
 
 
     Save(bbModel: Backbone.Model) {
-        if (bbModel.isNew() || bbModel.id=="")
-        {
-            var maxID: number;
-            maxID = _.max(this.persons.models, p => p.id).id * 1;
-            bbModel.set("id", maxID + 1);
-            this.persons.add(bbModel);
-        }
-        this.Layout.detail.closeView(); 
+        bbModel = this.persons.create(bbModel.toJSON());
+        this.persons.localStorage.update(bbModel);
+        this.Layout.detail.closeView();
+        app.Router.navigate("", false);
     }
 
 
     AddNew() {
         var model = new Models.Person();
-        var viewModel = new ViewModels.PersonViewModel(model);
-        viewModel.controller = this;
+        var viewModel = new Models.PersonViewModel(model, this);
+        
 
         var view = new Views.PersonView({
-            model: model,
             viewModel: viewModel
         });
 
-        this.Layout.detail.show(view);
+        //this.Layout.detail.show(view);
+        app.modal.show(view);
     }
 
     home() {

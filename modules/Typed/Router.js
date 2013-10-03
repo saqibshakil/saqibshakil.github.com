@@ -1,9 +1,9 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "./Views", "./Models", "./ViewModels", "../../js/libs/GL/GL", "namespace", "backbone", "namespace", "marionette", "underscore"], function(require, exports, __Views__, __Models__, __ViewModels__, __GL__) {
+define(["require", "exports", "./Views", "./Models", "../../js/libs/GL/GL", "namespace", "backbone", "namespace", "marionette", "underscore"], function(require, exports, __Views__, __Models__, __GL__) {
     /// <reference path="../../typings/app.d.ts" />
     /// <reference path="../../typings/backbone.d.ts" />
     /// <reference path="../../typings/require.d.ts" />
@@ -21,8 +21,6 @@ define(["require", "exports", "./Views", "./Models", "./ViewModels", "../../js/l
     var Views = __Views__;
 
     var Models = __Models__;
-
-    var ViewModels = __ViewModels__;
 
     var GL = __GL__;
 
@@ -51,8 +49,12 @@ define(["require", "exports", "./Views", "./Models", "./ViewModels", "../../js/l
     /*
     * Change the active element in the topbar
     */
-    var Controller = (function () {
-        function Controller() { }
+    var Controller = (function (_super) {
+        __extends(Controller, _super);
+        function Controller() {
+            _super.apply(this, arguments);
+
+        }
         Controller.prototype.InitializeLayout = function () {
             if((this.Layout !== undefined && this.Layout.isClosed == false)) {
                 return;
@@ -64,71 +66,41 @@ define(["require", "exports", "./Views", "./Models", "./ViewModels", "../../js/l
         };
         Controller.prototype.LoadGrid = function () {
             if(this.persons == undefined) {
-                this.persons = new Models.Persons([
-                    {
-                        id: "0",
-                        Name: "Saqib",
-                        FName: "Shakil"
-                    }, 
-                    {
-                        id: "1",
-                        Name: "Talha",
-                        FName: "Yousuf"
-                    }, 
-                    {
-                        id: "2",
-                        Name: "Nouman",
-                        FName: "Berlas"
-                    }, 
-                    {
-                        id: "3",
-                        Name: "Aqeel",
-                        FName: "Khandwala"
-                    }
-                ]);
+                this.persons = new Models.Persons();
             }
+            this.persons.fetch();
             var grid = new Views.TableView({
                 collection: this.persons
             });
             this.Layout.grid.show(grid);
         };
         Controller.prototype.LoadDetail = function (id) {
-            var model = _.find(this.persons.models, function (p) {
-                return p.id == id;
-            });
-            var viewModel = new ViewModels.PersonViewModel(model);
-            viewModel.controller = this;
+            var model = this.persons.get(id);
+            var viewModel = new Models.PersonViewModel(model, this);
             var view = new Views.PersonView({
-                model: model,
                 viewModel: viewModel
             });
             this.Layout.detail.show(view);
         };
         Controller.prototype.Save = function (bbModel) {
-            if(bbModel.isNew() || bbModel.id == "") {
-                var maxID;
-                maxID = _.max(this.persons.models, function (p) {
-                    return p.id;
-                }).id * 1;
-                bbModel.set("id", maxID + 1);
-                this.persons.add(bbModel);
-            }
+            bbModel = this.persons.create(bbModel.toJSON());
+            this.persons.localStorage.update(bbModel);
             this.Layout.detail.closeView();
+            app.Router.navigate("", false);
         };
         Controller.prototype.AddNew = function () {
             var model = new Models.Person();
-            var viewModel = new ViewModels.PersonViewModel(model);
-            viewModel.controller = this;
+            var viewModel = new Models.PersonViewModel(model, this);
             var view = new Views.PersonView({
-                model: model,
                 viewModel: viewModel
             });
-            this.Layout.detail.show(view);
+            //this.Layout.detail.show(view);
+            app.modal.show(view);
         };
         Controller.prototype.home = function () {
         };
         return Controller;
-    })();    
+    })(GL.Controller);    
     Typed.Router = Router;
 })
 //@ sourceMappingURL=Router.js.map

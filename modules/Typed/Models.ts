@@ -4,19 +4,29 @@
 // For each js file you need to access from typescript you need an amd-dependency
 /// <amd-dependency path="namespace"/>
 /// <amd-dependency path="backbone"/>
+/// <amd-dependency path="localstorage"/>
+/// <amd-dependency path="knockback"/>
+/// <amd-dependency path="knockout"/>
 
 var namespace = require("namespace");
 var Backbone = require("backbone");
+import GL = module("../../js/libs/GL/GL");
+
+var kb = require("knockback");
+var ko = require("knockout");
+
 
 // Shorthand the application namespace
 var app = namespace.app;
-
+declare class Store {
+    constructor(name: string);
+}
 // Create a module to hide our private implementation details 
 
 export class Person extends Backbone.Model {
     defaults() {
         return {
-            id : "",
+            id: null,
             Name : "",
             FName : ""
         }
@@ -24,6 +34,30 @@ export class Person extends Backbone.Model {
 };
 
 export class Persons extends Backbone.Collection {
-    model = Person;
+    localStorage: any;
+    constructor() {
+        this.model = Person;
+        this.localStorage = new Store("Persons");
+        super();
+    }
+    
 };
 
+export class PersonViewModel extends GL.ViewModel {
+
+    Update() {
+        //Some code to post data to server and get results
+        //You can access the Model as json using self.parentView.model
+        this.controller.Call("Save", this.bbModel);
+    };
+
+    Error = ko.observable();
+
+    SetDefaultName() {
+        if (this.model.Name() == "")
+            this.model.Name("Saqib");
+        else
+            this.model.Name("Sohail");
+    }
+
+}

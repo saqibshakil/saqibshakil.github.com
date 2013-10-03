@@ -1,4 +1,4 @@
-define(["require", "exports", "namespace", "backbone", "marionette", "./Router"], function(require, exports) {
+﻿define(["require", "exports", "namespace", "backbone", "marionette", "./Router"], function(require, exports) {
     /// <reference path="../../typings/require.d.ts" />
     // For each js file you need to access from typescript you need an amd-dependency
     /// <amd-dependency path="namespace"/>
