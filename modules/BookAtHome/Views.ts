@@ -18,9 +18,9 @@ var Backbone = require("backbone");
 var Marionette = require("marionette");
 var $ = require("jquery");
 var _ = require("underscore");
-var MainTemplate = require("text!./templates/Main.htm");
-var TilesTemplate = require("text!./templates/FacilityTiles.htm");
-var TileTemplate = require("text!./templates/FacilityTile.htm");
+var MainTemplate = require("text!./Templates/Main.htm");
+var TilesTemplate = require("text!./Templates/FacilityTiles.htm");
+var TileTemplate = require("text!./Templates/FacilityTile.htm");
 
 import GL = module("../../js/libs/GL/GL");
 
