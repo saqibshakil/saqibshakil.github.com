@@ -70,6 +70,7 @@ div.slideinoutondisplay
 {
     width: 100%;
     padding: 5px;
+    padding-right:15px;
     margin: 5px;
     overflow: hidden;
 }
@@ -112,19 +113,10 @@ div.slideinoutondisplay
         transform: translateX(+50%) rotateY(76deg);
     }
 
-/*body
+body
         {
-            color: #333;
-            background-image: none;
-            background-attachment: scroll;
-            background-repeat: repeat;
-            background-position-x: 0%;
-            background-position-y: 0%;
-            background-size: auto;
-            background-origin: padding-box;
-            background-clip: border-box;
-            background-color: rgb(238, 238, 238);
-        }*/
+            margin:3px;
+        }
 
 .CodeMirror
 {
@@ -327,12 +319,12 @@ div.slideinoutondisplay
 
 .CodeMirror div.CodeMirror-cursor
 {
+    position: absolute;
+    visibility: hidden;
     width: 0px;
-    border-right-color: currentColor;
     border-right-width: medium;
     border-right-style: none;
-    visibility: hidden;
-    position: absolute;
+    border-right-color: currentColor;
 }
 
 .CodeMirror-selected
@@ -390,4 +382,7 @@ div.slideinoutondisplay
     background-color: white;
 }
 
-</style >
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+} 
+

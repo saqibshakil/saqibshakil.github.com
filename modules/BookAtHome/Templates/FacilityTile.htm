@@ -1,0 +1,12 @@
+﻿<div>
+<div class="live-tile <%= color %>" data-speed="<%= dataSpeed %>" data-delay="<%= dataDelay %>" data-mode="<%= dataMode %>"  data-direction="<%= dataDirection %>">  
+        <% if(tileTitle!= "") {%> <span class="tile-title"><%= tileTitle %></span> <%}%>
+        <% _.each(Images, function(image){ %>
+        <div>
+            <% if(image.Title!= "") {%> 
+            <span class="tile-title accent"><%= image.Title %></span> <%}%>
+            <img class="full" src="/img/<%= image.Src %>" />
+        </div>
+        <% }); %>
+</div>
+</div>

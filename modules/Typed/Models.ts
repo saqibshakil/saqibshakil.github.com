@@ -2,13 +2,11 @@
 /// <reference path="../../typings/backbone.d.ts" />
 /// <reference path="../../typings/require.d.ts" />
 // For each js file you need to access from typescript you need an amd-dependency
-/// <amd-dependency path="namespace"/>
 /// <amd-dependency path="backbone"/>
 /// <amd-dependency path="localstorage"/>
 /// <amd-dependency path="knockback"/>
 /// <amd-dependency path="knockout"/>
 
-var namespace = require("namespace");
 var Backbone = require("backbone");
 import GL = module("../../js/libs/GL/GL");
 
@@ -16,8 +14,6 @@ var kb = require("knockback");
 var ko = require("knockout");
 
 
-// Shorthand the application namespace
-var app = namespace.app;
 declare class Store {
     constructor(name: string);
 }

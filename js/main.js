@@ -24,6 +24,7 @@ require.config({
         bootstrap: "libs/bootstrap/bootstrap",
         knockout: "libs/knockout/knockout",
         knockback: "libs/knockout/knockback",
+        metrojs: "libs/MetroJS/metro",
         gl: "libs/gl",
         text: // Require plugins
         "libs/require/text-2.0.3"
@@ -82,6 +83,11 @@ require.config({
                 "knockout"
             ],
             exports: "kb"
+        },
+        "metrojs": {
+            deps: [
+                "jquery"
+            ]
         }
     }
 });

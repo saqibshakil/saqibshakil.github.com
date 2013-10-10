@@ -35,6 +35,7 @@ define(["require", "exports", "./Views", "./Models", "../../js/libs/GL/GL", "nam
             this.routes = {
                 "d/Detail/:id": "LoadDetail",
                 "AddNew": "AddNew",
+                "Talha/:text": "BreakChair",
                 "*actions": "home"
             };
                 _super.call(this, options);
@@ -46,9 +47,6 @@ define(["require", "exports", "./Views", "./Models", "../../js/libs/GL/GL", "nam
         return Router;
     })(GL.ModuleRouter);
     exports.Router = Router;    
-    /*
-    * Change the active element in the topbar
-    */
     var Controller = (function (_super) {
         __extends(Controller, _super);
         function Controller() {
@@ -82,6 +80,9 @@ define(["require", "exports", "./Views", "./Models", "../../js/libs/GL/GL", "nam
             });
             this.Layout.detail.show(view);
         };
+        Controller.prototype.BreakChair = function (text) {
+            alert("Culprit is Talha" + text);
+        };
         Controller.prototype.Save = function (bbModel) {
             bbModel = this.persons.create(bbModel.toJSON());
             this.persons.localStorage.update(bbModel);
@@ -94,9 +95,9 @@ define(["require", "exports", "./Views", "./Models", "../../js/libs/GL/GL", "nam
             var view = new Views.PersonView({
                 viewModel: viewModel
             });
-            //this.Layout.detail.show(view);
-            app.modal.show(view);
-        };
+            this.Layout.detail.show(view);
+            //app.modal.show(view);
+                    };
         Controller.prototype.home = function () {
         };
         return Controller;

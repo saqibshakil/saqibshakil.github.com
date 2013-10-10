@@ -67,6 +67,7 @@
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="api\Facilities.js" />
     <Content Include="Content\qunit.css" />
     <Content Include="css\animation.css" />
     <Content Include="css\bootstrap-responsive.css" />
@@ -74,6 +75,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\jasmine.css" />
+    <Content Include="css\metro.css" />
     <Content Include="img\add.png" />
     <Content Include="img\bg.png" />
     <Content Include="img\busy.gif" />
@@ -115,6 +117,7 @@
     <Content Include="js\libs\knockout\knockback.min.js" />
     <Content Include="js\libs\knockout\knockout.js" />
     <Content Include="js\libs\knockout\knockout.min.js" />
+    <Content Include="js\libs\MetroJS\metro.js" />
     <Content Include="js\libs\modernizer\modernizr-2.6.1.js" />
     <Content Include="js\libs\modernizer\modernizr-2.6.1.min.js" />
     <Content Include="js\libs\require\require-2.0.5.js" />
@@ -139,6 +142,44 @@
     <Content Include="lib\jasmine.js" />
     <Content Include="lib\qunit.css" />
     <Content Include="lib\qunit.js" />
+    <TypeScriptCompile Include="modules\BookAtHome\Main.ts" />
+    <TypeScriptCompile Include="modules\BookAtHome\Data.ts" />
+    <Content Include="modules\BookAtHome\Data.js">
+      <DependentUpon>Data.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Data.min.js">
+      <DependentUpon>Data.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Main.js">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Main.min.js">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="modules\BookAtHome\Router.ts" />
+    <TypeScriptCompile Include="modules\BookAtHome\Models.ts" />
+    <Content Include="modules\BookAtHome\Models.js">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Models.min.js">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Router.js">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Router.min.js">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Templates\FacilityTile.htm" />
+    <Content Include="modules\BookAtHome\Templates\FacilityTiles.htm" />
+    <Content Include="modules\BookAtHome\Templates\Main.htm" />
+    <Content Include="modules\BookAtHome\Views.js">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Views.min.js">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Views.ts" />
     <Content Include="modules\Connect\Main.js" />
     <Content Include="modules\Connect\Main.min.js" />
     <Content Include="modules\Connect\Main.ts" />
@@ -238,7 +279,6 @@
     <Content Include="Tests\deps.js" />
     <Content Include="Tests\Typed\ModelDep.js" />
     <Content Include="Tests\Typed\ModelTests.js" />
-    <Content Include="Tests\Typed\_Chutzpah.fa1e84ea638491814cb5224b661225d4.test.html" />
     <Content Include="typings\backbone.d.ts" />
     <Content Include="typings\jquery.d.ts" />
     <Content Include="typings\marionette.d.ts" />
@@ -346,6 +386,24 @@
       <DependentUpon>GL.js</DependentUpon>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="modules\BookAtHome\Main.js.map">
+      <DependentUpon>Main.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Router.js.map">
+      <DependentUpon>Router.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Models.js.map">
+      <DependentUpon>Models.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Views.min.js.map">
+      <DependentUpon>Views.js</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Views.js.map">
+      <DependentUpon>Views.ts</DependentUpon>
+    </Content>
+    <Content Include="modules\BookAtHome\Data.js.map">
+      <DependentUpon>Data.ts</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

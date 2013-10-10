@@ -3,24 +3,20 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../../js/libs/GL/GL", "namespace", "backbone", "localstorage", "knockback", "knockout"], function(require, exports, __GL__) {
+define(["require", "exports", "../../js/libs/GL/GL", "backbone", "localstorage", "knockback", "knockout"], function(require, exports, __GL__) {
     /// <reference path="../../typings/app.d.ts" />
     /// <reference path="../../typings/backbone.d.ts" />
     /// <reference path="../../typings/require.d.ts" />
     // For each js file you need to access from typescript you need an amd-dependency
-    /// <amd-dependency path="namespace"/>
     /// <amd-dependency path="backbone"/>
     /// <amd-dependency path="localstorage"/>
     /// <amd-dependency path="knockback"/>
     /// <amd-dependency path="knockout"/>
-    var namespace = require("namespace");
     var Backbone = require("backbone");
     var GL = __GL__;
 
     var kb = require("knockback");
     var ko = require("knockout");
-    // Shorthand the application namespace
-    var app = namespace.app;
     
     // Create a module to hide our private implementation details
     var Person = (function (_super) {

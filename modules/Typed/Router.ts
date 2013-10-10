@@ -33,6 +33,7 @@ export class Router extends GL.ModuleRouter {
         this.routes = {
             "d/Detail/:id": "LoadDetail",
             "AddNew": "AddNew",
+            "Talha/:text": "BreakChair",
             "*actions": "home"
         }
 
@@ -42,9 +43,7 @@ export class Router extends GL.ModuleRouter {
         this.Controller.InitializeLayout();
         return true;
     }
-    /*
-    * Change the active element in the topbar 
-    */
+
 
 }
 
@@ -88,7 +87,9 @@ class Controller extends GL.Controller {
 
     }
 
-
+    BreakChair(text) {
+        alert("Culprit is Talha" + text);
+    }
     Save(bbModel: Backbone.Model) {
         bbModel = this.persons.create(bbModel.toJSON());
         this.persons.localStorage.update(bbModel);
@@ -106,8 +107,8 @@ class Controller extends GL.Controller {
             viewModel: viewModel
         });
 
-        //this.Layout.detail.show(view);
-        app.modal.show(view);
+        this.Layout.detail.show(view);
+        //app.modal.show(view);
     }
 
     home() {
