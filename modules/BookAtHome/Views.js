@@ -3,7 +3,7 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../../js/libs/GL/GL", "namespace", "backbone", "marionette", "jquery", "underscore", "metrojs", "text!./templates/Main.htm", "text!./templates/FacilityTiles.htm", "text!./templates/FacilityTile.htm"], function(require, exports, __GL__) {
+define(["require", "exports", "../../js/libs/GL/GL", "namespace", "backbone", "marionette", "jquery", "underscore", "metrojs", "text!./Templates/Main.htm", "text!./Templates/FacilityTiles.htm", "text!./Templates/FacilityTile.htm"], function(require, exports, __GL__) {
     /// <reference path="../../typings/underscore.d.ts" />
     /// <reference path="../../typings/marionette.d.ts" />
     /// <reference path="../../typings/app.d.ts" />
@@ -16,9 +16,9 @@ define(["require", "exports", "../../js/libs/GL/GL", "namespace", "backbone", "m
     /// <amd-dependency path="jquery"/>
     /// <amd-dependency path="underscore"/>
     /// <amd-dependency path="metrojs"/>
-    /// <amd-dependency path="text!./templates/Main.htm"/>
-    /// <amd-dependency path="text!./templates/FacilityTiles.htm"/>
-    /// <amd-dependency path="text!./templates/FacilityTile.htm"/>
+    /// <amd-dependency path="text!./Templates/Main.htm"/>
+    /// <amd-dependency path="text!./Templates/FacilityTiles.htm"/>
+    /// <amd-dependency path="text!./Templates/FacilityTile.htm"/>
     var Backbone = require("backbone");
     var Marionette = require("marionette");
     var $ = require("jquery");

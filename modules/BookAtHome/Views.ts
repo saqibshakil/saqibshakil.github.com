@@ -10,9 +10,9 @@
 /// <amd-dependency path="jquery"/>
 /// <amd-dependency path="underscore"/> 
 /// <amd-dependency path="metrojs"/> 
-/// <amd-dependency path="text!./templates/Main.htm"/>
-/// <amd-dependency path="text!./templates/FacilityTiles.htm"/>
-/// <amd-dependency path="text!./templates/FacilityTile.htm"/>
+/// <amd-dependency path="text!./Templates/Main.htm"/>
+/// <amd-dependency path="text!./Templates/FacilityTiles.htm"/>
+/// <amd-dependency path="text!./Templates/FacilityTile.htm"/>
 
 var Backbone = require("backbone");
 var Marionette = require("marionette");
