@@ -5,12 +5,12 @@
     	"dataMode": "carousel",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Swimmingpool.jpg",
+            	"Src": "img\\Leisure\\Swimmingpool.html",
             	"Title": "Olympic Grade Pools",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\SwimmingDevelopment.jpg",
+            	"Src": "img\\Leisure\\SwimmingDevelopment.html",
             	"Title": "Swimming Development",
             	"Accent": "true"
             }
@@ -22,17 +22,17 @@
     	"dataMode": "carousel",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\TheClub.jpg",
+            	"Src": "img\\Leisure\\TheClub.html",
             	"Title": "The Club",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Personal.jpg",
+            	"Src": "img\\Leisure\\Personal.html",
             	"Title": "Personal Trainer",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Fitness.jpg",
+            	"Src": "img\\Leisure\\Fitness.html",
             	"Title": "Fitness Sessions",
             	"Accent": "true"
             }
@@ -44,17 +44,17 @@
     	"dataMode": "carousel",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Multipurposeroom.jpg",
+            	"Src": "img\\Leisure\\Multipurposeroom.html",
             	"Title": "Multi Purpose Rooms",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Meeting.jpg",
+            	"Src": "img\\Leisure\\Meeting.html",
             	"Title": "Meeting Rooms",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Functionhall.jpg",
+            	"Src": "img\\Leisure\\Functionhall.html",
             	"Title": "Function Halls",
             	"Accent": "true"
             }
@@ -66,12 +66,12 @@
     	"dataMode": "flip",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Fitness.jpg",
+            	"Src": "img\\Leisure\\Fitness.html",
             	"Title": "Fitness Sessions",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\EarlyYears.jpg",
+            	"Src": "img\\Leisure\\EarlyYears.html",
             	"Title": "Early Years",
             	"Accent": "true"
             }
@@ -84,12 +84,12 @@
     	"largeTitle": "Sports",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\SportsHalls.jpg",
+            	"Src": "img\\Leisure\\SportsHalls.html",
             	"Title": "Sports Halls",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Football.jpg",
+            	"Src": "img\\Leisure\\Football.html",
             	"Title": "Synthetic Football Fields",
             	"Accent": "true"
             }
@@ -101,12 +101,12 @@
     	"dataMode": "carousel",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Cafe_7_.jpg",
+            	"Src": "img\\Leisure\\Cafe_7_.html",
             	"Title": "Cafe",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\SportsHalls.jpg",
+            	"Src": "img\\Leisure\\SportsHalls.html",
             	"Title": "Sports Halls",
             	"Accent": "true"
             }
@@ -118,12 +118,12 @@
     	"dataMode": "flip",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Dancestudio.jpg",
+            	"Src": "img\\Leisure\\Dancestudio.html",
             	"Title": "Dance Studio",
             	"Accent": "true"
             },
             {
-            	"Src": "\\img\\Leisure\\Fitness.jpg",
+            	"Src": "img\\Leisure\\Fitness.html",
             	"Title": "Fitness Sessions",
             	"Accent": "true"
             }
@@ -135,7 +135,7 @@
     	"dataMode": "flip",
     	"Images": [
             {
-            	"Src": "\\img\\Leisure\\Dancestudio.jpg",
+            	"Src": "img\\Leisure\\Dancestudio.html",
             	"Title": "Dance Studio",
             	"Accent": "true"
             },
