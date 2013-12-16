@@ -1,4 +1,4 @@
-export var Facilities = [{
+[{
     "id": "1",
     "color": "blue",
     "dataMode": "carousel",
@@ -140,4 +140,4 @@ export var Facilities = [{
     ]
 
 
-}];
+}]

@@ -1,4 +1,4 @@
-define(["require", "exports"], function(require, exports) {
+﻿define(["require", "exports"], function(require, exports) {
     exports.Facilities = [
         {
             "id": "1",
@@ -6,12 +6,12 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "carousel",
             "Images": [
                 {
-                    "Src": "Leisure\\Swimmingpool.jpg",
+                    "Src": "\\img\\Leisure\\Swimmingpool.jpg",
                     "Title": "Olympic Grade Pools",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\SwimmingDevelopment.jpg",
+                    "Src": "\\img\\Leisure\\SwimmingDevelopment.jpg",
                     "Title": "Swimming Development",
                     "Accent": "true"
                 }
@@ -23,17 +23,17 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "carousel",
             "Images": [
                 {
-                    "Src": "Leisure\\TheClub.jpg",
+                    "Src": "\\img\\Leisure\\TheClub.jpg",
                     "Title": "The Club",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Personal.jpg",
+                    "Src": "\\img\\Leisure\\Personal.jpg",
                     "Title": "Personal Trainer",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Fitness.jpg",
+                    "Src": "\\img\\Leisure\\Fitness.jpg",
                     "Title": "Fitness Sessions",
                     "Accent": "true"
                 }
@@ -45,17 +45,17 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "carousel",
             "Images": [
                 {
-                    "Src": "Leisure\\Multipurposeroom.jpg",
+                    "Src": "\\img\\Leisure\\Multipurposeroom.jpg",
                     "Title": "Multi Purpose Rooms",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Meeting.jpg",
+                    "Src": "\\img\\Leisure\\Meeting.jpg",
                     "Title": "Meeting Rooms",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Functionhall.jpg",
+                    "Src": "\\img\\Leisure\\Functionhall.jpg",
                     "Title": "Function Halls",
                     "Accent": "true"
                 }
@@ -67,12 +67,12 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "flip",
             "Images": [
                 {
-                    "Src": "Leisure\\Fitness.jpg",
+                    "Src": "\\img\\Leisure\\Fitness.jpg",
                     "Title": "Fitness Sessions",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\EarlyYears.jpg",
+                    "Src": "\\img\\Leisure\\EarlyYears.jpg",
                     "Title": "Early Years",
                     "Accent": "true"
                 }
@@ -85,12 +85,12 @@ define(["require", "exports"], function(require, exports) {
             "largeTitle": "Sports",
             "Images": [
                 {
-                    "Src": "Leisure\\SportsHalls.jpg",
+                    "Src": "\\img\\Leisure\\SportsHalls.jpg",
                     "Title": "Sports Halls",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Football.jpg",
+                    "Src": "\\img\\Leisure\\Football.jpg",
                     "Title": "Synthetic Football Fields",
                     "Accent": "true"
                 }
@@ -102,12 +102,12 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "carousel",
             "Images": [
                 {
-                    "Src": "Leisure\\Cafe_7_.jpg",
+                    "Src": "\\img\\Leisure\\Cafe_7_.jpg",
                     "Title": "Cafe",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\SportsHalls.jpg",
+                    "Src": "\\img\\Leisure\\SportsHalls.jpg",
                     "Title": "Sports Halls",
                     "Accent": "true"
                 }
@@ -119,12 +119,12 @@ define(["require", "exports"], function(require, exports) {
             "dataMode": "flip",
             "Images": [
                 {
-                    "Src": "Leisure\\Dancestudio.jpg",
+                    "Src": "\\img\\Leisure\\Dancestudio.jpg",
                     "Title": "Dance Studio",
                     "Accent": "true"
                 }, 
                 {
-                    "Src": "Leisure\\Fitness.jpg",
+                    "Src": "\\img\\Leisure\\Fitness.jpg",
                     "Title": "Fitness Sessions",
                     "Accent": "true"
                 }
