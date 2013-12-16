@@ -24,7 +24,7 @@ import Data = module("./Data");
 // Shorthand the application namespace
 var app: app = namespace.app;
 var BookAtHome = app.module("BookAtHome");
-
+var FacilityURL = window["cordova"] != undefined ? 'http://saqibshakil.github.io/facilities.js?' : "/facilities.js?";
 // Create a module to hide our private implementation details 
 
 
@@ -58,19 +58,33 @@ class Controller extends GL.Controller {
         }
         this.Layout = new Views.MainView();
         app.content.show(this.Layout);
-        if (this.Items == undefined)
-            this.Items = new Models.Facilities(Data.Facilities);
+        var Facilities;
+        try {
+            if (localStorage.getItem("Facilities") != undefined)
+                Facilities = JSON.parse(localStorage.getItem("Facilities"));
+        }
+        catch (e)
+        {
+            Facilities = Data.Facilities;
+        }
+        Data.Facilities = Facilities;
     }
 
 
     home() {
-
-
-        var grid = new Views.GridView({
-            collection: this.Items
+        $.getJSON(FacilityURL + Math.random()*1000)
+        .done((data) => {
+            this.Items = new Models.Facilities(data.Facilities);
+            localStorage.setItem("Facilities", JSON.stringify(data.Facilities));
+        })
+        .fail(() => {
+            this.Items = new Models.Facilities(Data.Facilities);
+        }).always(() => {
+            var grid = new Views.GridView({
+                collection: this.Items
+            });
+            this.Layout.detail.show(grid);
         });
-        this.Layout.detail.show(grid);
-
         
     }
 

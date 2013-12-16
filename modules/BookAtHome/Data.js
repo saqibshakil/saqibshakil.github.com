@@ -1,4 +1,4 @@
-﻿define(["require", "exports"], function(require, exports) {
+define(["require", "exports"], function(require, exports) {
     exports.Facilities = [
         {
             "id": "1",

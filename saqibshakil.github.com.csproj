@@ -404,6 +404,7 @@
     <Content Include="modules\BookAtHome\Data.js.map">
       <DependentUpon>Data.ts</DependentUpon>
     </Content>
+    <None Include="facilities.js0" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

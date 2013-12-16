@@ -31,6 +31,7 @@ define(["require", "exports", "../../js/libs/GL/GL", "./Views", "./Models", "./D
     // Shorthand the application namespace
     var app = namespace.app;
     var BookAtHome = app.module("BookAtHome");
+    var FacilityURL = window["cordova"] != undefined ? 'http://saqibshakil.github.io/facilities.js?' : "/facilities.js?";
     // Create a module to hide our private implementation details
     var Router = (function (_super) {
         __extends(Router, _super);
@@ -60,15 +61,29 @@ define(["require", "exports", "../../js/libs/GL/GL", "./Views", "./Models", "./D
             }
             this.Layout = new Views.MainView();
             app.content.show(this.Layout);
-            if(this.Items == undefined) {
-                this.Items = new Models.Facilities(Data.Facilities);
+            var Facilities;
+            try  {
+                if(localStorage.getItem("Facilities") != undefined) {
+                    Facilities = JSON.parse(localStorage.getItem("Facilities"));
+                }
+            } catch (e) {
+                Facilities = Data.Facilities;
             }
+            Data.Facilities = Facilities;
         };
         Controller.prototype.home = function () {
-            var grid = new Views.GridView({
-                collection: this.Items
+            var _this = this;
+            $.getJSON(FacilityURL + Math.random() * 1000).done(function (data) {
+                _this.Items = new Models.Facilities(data.Facilities);
+                localStorage.setItem("Facilities", JSON.stringify(data.Facilities));
+            }).fail(function () {
+                _this.Items = new Models.Facilities(Data.Facilities);
+            }).always(function () {
+                var grid = new Views.GridView({
+                    collection: _this.Items
+                });
+                _this.Layout.detail.show(grid);
             });
-            this.Layout.detail.show(grid);
         };
         return Controller;
     })(GL.Controller);    
