@@ -39,14 +39,14 @@ declare module jasmine {
 
         new (expectedClass: any): any;
 
-        jasmineMatches(other: any): bool;
+        jasmineMatches(other: any): Boolean;
         jasmineToString(): string;
     }
 
     interface ObjectContaining {
         new (sample: any): any;
 
-        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): bool;
+        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): Boolean;
         jasmineToString(): string;
     }
 
@@ -69,13 +69,13 @@ declare module jasmine {
         reset();
         tick(millis: number);
         runFunctionsWithinRange(oldMillis: number, nowMillis: number);
-        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: bool);
+        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: Boolean);
         useMock();
         installMock();
         uninstallMock();
         real;
         assertInstalled();
-        isInstalled(): bool;
+        isInstalled(): Boolean;
         installed: any;
     }
 
@@ -102,12 +102,12 @@ declare module jasmine {
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         xit(desc: string, func: () => void): XSpec;
-        compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): bool;
-        compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): bool;
-        equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): bool;
-        contains_(haystack: any, needle: any): bool;
+        compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): Boolean;
+        compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): Boolean;
+        equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): Boolean;
+        contains_(haystack: any, needle: any): Boolean;
         addEqualityTester(equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => bool);
-        specFilter(spec: Spec): bool;
+        specFilter(spec: Spec): Boolean;
     }
 
     interface FakeTimer {
@@ -117,7 +117,7 @@ declare module jasmine {
         reset();
         tick(millis: number);
         runFunctionsWithinRange(oldMillis: number, nowMillis: number);
-        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: bool);
+        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: Boolean);
     }
 
     interface HtmlReporter {
@@ -135,13 +135,13 @@ declare module jasmine {
         passedCount: number;
         failedCount: number;
 
-        skipped: bool;
+        skipped: Boolean;
 
         rollupCounts(result: NestedResults);
         log(values: any);
         getItems(): Result[];
         addResult(result: Result);
-        passed(): bool;
+        passed(): Boolean;
     }
 
     interface MessageResult extends Result  {
@@ -151,7 +151,7 @@ declare module jasmine {
 
     interface ExpectationResult extends Result  {
         matcherName: string;
-        passed(): bool;
+        passed(): Boolean;
         expected: any;
         actual: any;
         message: string;
@@ -169,7 +169,7 @@ declare module jasmine {
         new (): any;
 
         format(value: any);
-        iterateObject(obj: any, fn: (property: string, isGetter: bool) => void);
+        iterateObject(obj: any, fn: (property: string, isGetter: Boolean) => void);
         emitScalar(value: any);
         emitString(value: string);
         emitArray(array: any[]);
@@ -185,55 +185,55 @@ declare module jasmine {
         new (env: any): any;
 
         env: Env;
-        ensured: bool[];
+        ensured: Boolean[];
         blocks: Block[];
-        running: bool;
+        running: Boolean;
         index: number;
         offset: number;
-        abort: bool;
+        abort: Boolean;
 
-        addBefore(block: Block, ensure?: bool);
-        add(block: any, ensure?: bool);
-        insertNext(block: any, ensure?: bool);
+        addBefore(block: Block, ensure?: Boolean);
+        add(block: any, ensure?: Boolean);
+        insertNext(block: any, ensure?: Boolean);
         start(onComplete?: () => void);
-        isRunning(): bool;
+        isRunning(): Boolean;
         next_();
         results(): NestedResults;
     }
 
     interface Matchers {
 
-        new (env: Env, actual: any, spec: Env, isNot?: bool): any;
+        new (env: Env, actual: any, spec: Env, isNot?: Boolean): any;
 
         env: Env;
         actual: any;
         spec: Env;
-        isNot?: bool;
+        isNot?: Boolean;
         message(): any;
 
-        toBe(expected: any): bool;
-        toNotBe(expected: any): bool;
-        toEqual(expected: any): bool;
-        toNotEqual(expected: any): bool;
-        toMatch(expected: any): bool;
-        toNotMatch(expected: any): bool;
-        toBeDefined(): bool;
-        toBeUndefined(): bool;
-        toBeNull(): bool;
-        toBeNaN(): bool;
-        toBeTruthy(): bool;
-        toBeFalsy(): bool;
-        toHaveBeenCalled(): bool;
-        wasNotCalled(): bool;
-        toHaveBeenCalledWith(...params: any[]): bool;
-        toContain(expected: any): bool;
-        toNotContain(expected: any): bool;
-        toBeLessThan(expected: any): bool;
-        toBeGreaterThan(expected: any): bool;
-        toBeCloseTo(expected: any, precision: any): bool;
-        toContainHtml(expected: string): bool;
-        toContainText(expected: string): bool;
-        toThrow(expected?: any): bool;
+        toBe(expected: any): Boolean;
+        toNotBe(expected: any): Boolean;
+        toEqual(expected: any): Boolean;
+        toNotEqual(expected: any): Boolean;
+        toMatch(expected: any): Boolean;
+        toNotMatch(expected: any): Boolean;
+        toBeDefined(): Boolean;
+        toBeUndefined(): Boolean;
+        toBeNull(): Boolean;
+        toBeNaN(): Boolean;
+        toBeTruthy(): Boolean;
+        toBeFalsy(): Boolean;
+        toHaveBeenCalled(): Boolean;
+        wasNotCalled(): Boolean;
+        toHaveBeenCalledWith(...params: any[]): Boolean;
+        toContain(expected: any): Boolean;
+        toNotContain(expected: any): Boolean;
+        toBeLessThan(expected: any): Boolean;
+        toBeGreaterThan(expected: any): Boolean;
+        toBeCloseTo(expected: any, precision: any): Boolean;
+        toContainHtml(expected: string): Boolean;
+        toContainText(expected: string): Boolean;
+        toThrow(expected?: any): Boolean;
         not: Matchers;
 
         Any: Any;
@@ -309,7 +309,7 @@ declare module jasmine {
         execute(onComplete?: () => void): any;
         addBeforesAndAftersToQueue();
         explodes();
-        spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: bool): Spy;
+        spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: Boolean): Spy;
         removeAllSpies();
     }
 
@@ -347,7 +347,7 @@ declare module jasmine {
         calls: any[];
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
-        wasCalled: bool;
+        wasCalled: Boolean;
         callCount: number;
 
         andReturn(value: any): Spy;
@@ -365,8 +365,8 @@ declare module jasmine {
 
     interface JsApiReporter extends Reporter {
 
-        started: bool;
-        finished: bool;
+        started: Boolean;
+        finished: Boolean;
         result: any;
         messages: any;
 

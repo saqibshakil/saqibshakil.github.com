@@ -1,16 +1,16 @@
 ﻿define([
-    // Libs
-    "namespace", 
-    "gl", 
-    "backbone", 
-    "marionette", 
-    "jquery", 
-    "underscore", 
-    "subroute", 
+    "namespace",
+    "gl",
+    "backbone",
+    "marionette",
+    "jquery",
+    "underscore",
+    "subroute",
     "routefilter"
 ], function (namespace, GL, Backbone, Marionette, $, _) {
     // Shorthand the application namespace
     var app = namespace.app;
+
     // Create a module to hide our private implementation details
     app.module("Connect", function (Connect, app, Backbone, Marionette, $, _) {
         Connect.Controller = {
@@ -19,7 +19,8 @@
                 app.content.show(view);
             }
         };
-        Connect.Router = app.GL.ModuleRouter.extend($.extend(true, {
+
+        Connect.Router = GL.ModuleRouter.extend($.extend(true, {
             initialize: function (options) {
                 this.options = options;
             },
@@ -28,13 +29,12 @@
                 "home": "home",
                 "*else": "gotoHome"
             },
-            gotoHome: /*
+            /*
             * Change the active element in the topbar
             */
-            function (route) {
+            gotoHome: function (route) {
                 alert(route);
             }
         }, Connect.Controller));
     });
 });
-//@ sourceMappingURL=Router.js.map

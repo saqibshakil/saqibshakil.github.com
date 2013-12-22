@@ -9,6 +9,7 @@
 /// <amd-dependency path="jquery"/>
 /// <amd-dependency path="underscore"/>
 /// <amd-dependency path="knockout"/>
+/// <amd-dependency path="subroute"/>
 /// <amd-dependency path="knockback"/>
 var ko = require("knockout");
 var kb = require("knockback");
@@ -18,7 +19,7 @@ var Backbone = require("backbone");
 var Marionette = require("marionette");
 var $ = require("jquery");
 var _ = require("underscore");
-
+var subroute = require("subroute");
 
 var app = namespace.app;
 export module Views {
@@ -29,14 +30,14 @@ export module Views {
                 this.viewModel = options.viewModel;
                 options.model = this.viewModel.model;
             }
-        };
+        }
         onShow() {
             ko.applyBindings(this.viewModel, this.el);
 
         }
         onClose() {
             ko.cleanNode($(this.el)[0]);
-        };
+        }
 
     };
 
@@ -55,15 +56,18 @@ export module Views {
 }
 
 export class ModuleRouter extends Backbone.SubRoute {
-    beforeRoute(route) { };
-    before() {
-
+    beforeRoute(any) {
+        console.log("ModuleRouter.beforeRoute");
+        return true;
+    }
+    before():boolean {
+        console.log("ModuleRouter.Before");
         var loginToken = "";
-        if (app.GL.GetLoginToken)
-            loginToken = app.GL.GetLoginToken();
+        if (localStorage.getItem("loginToken") != undefined)
+            loginToken = localStorage.getItem("loginToken"); 
         var route = location.hash.replace("#", "");
 
-        if (loginToken == "") {
+        if (loginToken == "") { 
             this.navigate("/Security/Login/" + route, true);
             return false;
         }
@@ -73,7 +77,7 @@ export class ModuleRouter extends Backbone.SubRoute {
 
 
         return true;
-    };
+    }
 
     UpdateModel(ModName) {
         if (app.Security.UserModules != null) {
@@ -84,7 +88,7 @@ export class ModuleRouter extends Backbone.SubRoute {
                 mod[0].set("IsSelected", true);
         }
 
-    };
+    }
 
 
 }
@@ -97,14 +101,14 @@ export module Regions {
             super();
         }
         initialize() {
-            this.on("show", this.showModal, this);
-        };
+            this.on.call(this, "show", this.showModal, this);
+        }
 
         getEl(selector) {
             var $el = $(selector);
             $el.on("hidden", this.close);
             return $el;
-        };
+        }
 
         showModal(view) {
             view.on("close", this.hideModal, this);
@@ -112,13 +116,13 @@ export module Regions {
             modalDiv.modal('show');
             modalDiv.on('hidden.bs.modal', () => view.close());
 
-        };
+        }
 
         hideModal() {
             this.$el.parent().parent().parent().modal('hide');
-        };
+        }
         onClose() {
-            this.off("show", this.showModal);
+            this.off.call(this, "show", this.showModal, this);
         }
 
     };
@@ -194,7 +198,7 @@ export module Regions {
             if (isDifferentView) {
                 this.promiseClose(view).done(() => {
                     this.addBaseAnimate(view);
-                    this.addTransitionInit(view, self);
+                    this.addTransitionInit(view, this);
                     view.render();
                     if (isDifferentView || isViewClosed) {
                         this.open(view);
@@ -271,6 +275,46 @@ export module Regions {
         }
     };
 
+    if(Marionette.Region.prototype.delegatedshow === undefined)
+        Marionette.Region.prototype.delegatedshow = Marionette.Region.prototype.show;
+    Marionette.Region.prototype.show =
+    function (view) {
+        this.ensureEl();
+        if (this.$el.length === 0) {
+            setTimeout(
+                () => this.show(view), 50
+                );
+        }
+        else {
+            console.log("delegatedshow");
+            this.delegatedshow(view);
+        }
+    }
+
+    //Backbone.Router.prototype.route = function (route, name, callback) {
+
+    //    if (!_.isRegExp(route)) route = this._routeToRegExp(route);
+    //    if (_.isFunction(name)) {
+    //        callback = name;
+    //        name = '';
+    //    }
+
+    //    if (!callback) {
+    //        if (this.Controller) {
+    //            callback = this.Controller[name];
+    //        }
+    //        callback = this[name];
+    //    }
+    //    var router = this;
+    //    Backbone.history.route(route, function (fragment) {
+    //        var args = router._extractParameters(route, fragment);
+    //        callback && callback.apply(router, args);
+    //        router.trigger.apply(router, ['route:' + name].concat(args));
+    //        router.trigger('route', name, args);
+    //        Backbone.history.trigger('route', router, name, args);
+    //    });
+    //    return this;
+    //};
 
 }
 

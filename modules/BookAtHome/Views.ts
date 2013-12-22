@@ -22,7 +22,7 @@ var MainTemplate = require("text!./Templates/Main.htm");
 var TilesTemplate = require("text!./Templates/FacilityTiles.htm");
 var TileTemplate = require("text!./Templates/FacilityTile.htm");
 
-import GL = module("../../js/libs/GL/GL");
+import GL = require("../../js/libs/GL/GL");
 
 
 export class MainView extends Marionette.Layout {

@@ -8,7 +8,7 @@
 /// <amd-dependency path="knockout"/>
 
 var Backbone = require("backbone");
-import GL = module("../../js/libs/GL/GL");
+import GL = require("../../js/libs/GL/GL");
 
 var kb = require("knockback");
 var ko = require("knockout");

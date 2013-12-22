@@ -41,7 +41,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>57435</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:62268/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
@@ -76,6 +76,7 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\jasmine.css" />
     <Content Include="css\metro.css" />
+    <Content Include="facilities.js" />
     <Content Include="img\add.png" />
     <Content Include="img\bg.png" />
     <Content Include="img\busy.gif" />
@@ -101,9 +102,6 @@
     <Content Include="js\libs\backbone\backbone.js" />
     <Content Include="js\libs\backbone\backbone.min.js" />
     <Content Include="js\libs\bootstrap\bootstrap.js" />
-    <Content Include="js\libs\gl.js" />
-    <Content Include="js\libs\gl.min.js" />
-    <Content Include="js\libs\gl.ts" />
     <TypeScriptCompile Include="js\libs\GL\GL.ts" />
     <Content Include="js\libs\GL\GL.js">
       <DependentUpon>GL.ts</DependentUpon>
@@ -210,13 +208,7 @@
       <DependentUpon>Models.ts</DependentUpon>
     </Content>
     <Content Include="modules\Typed\Models.ts" />
-    <Content Include="modules\Typed\Router.js">
-      <DependentUpon>Router.ts</DependentUpon>
-    </Content>
-    <Content Include="modules\Typed\Router.min.js">
-      <DependentUpon>Router.ts</DependentUpon>
-    </Content>
-    <Content Include="modules\Typed\Router.ts" />
+    <TypeScriptCompile Include="modules\Typed\Router.ts" />
     <Content Include="modules\Typed\templates\Main.htm" />
     <Content Include="modules\Typed\templates\templates.htm" />
     <Content Include="modules\Typed\ViewModels.js">
@@ -274,13 +266,13 @@
     <Content Include="Scripts\jasmine.js" />
     <Content Include="Scripts\qunit.js" />
     <Content Include="Scripts\typings\jasmine\jasmine.d.ts" />
+    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\typings\qunit\qunit.d.ts" />
     <Content Include="Tests\definemocked.js" />
     <Content Include="Tests\deps.js" />
     <Content Include="Tests\Typed\ModelDep.js" />
     <Content Include="Tests\Typed\ModelTests.js" />
     <Content Include="typings\backbone.d.ts" />
-    <Content Include="typings\jquery.d.ts" />
     <Content Include="typings\marionette.d.ts" />
     <TypeScriptCompile Include="typings\qunit.d.ts" />
     <Content Include="typings\qunit.d.js">
@@ -310,10 +302,6 @@
     </Content>
     <Content Include="js\libs\backbone\backbone.min.js.map">
       <DependentUpon>backbone.js</DependentUpon>
-    </Content>
-    <Content Include="js\libs\gl.js.map" />
-    <Content Include="js\libs\gl.min.js.map">
-      <DependentUpon>gl.js</DependentUpon>
     </Content>
     <Content Include="js\libs\jquery\jquery-1.8.0.min.js.map" />
     <Content Include="js\libs\knockout\knockback.min.js.map" />
@@ -357,12 +345,11 @@
     <Content Include="modules\Documentation\ViewModels.js.map" />
     <Content Include="modules\Documentation\ViewModels.min.js.map" />
     <Content Include="modules\Documentation\Views.js.map" />
-    <Content Include="modules\Documentation\Views.min.js.map" />
+    <Content Include="modules\Documentation\Views.min.js.map">
+      <DependentUpon>Views.js</DependentUpon>
+    </Content>
     <Content Include="modules\Typed\Main.js.map">
       <DependentUpon>Main.ts</DependentUpon>
-    </Content>
-    <Content Include="modules\Typed\Router.js.map">
-      <DependentUpon>Router.ts</DependentUpon>
     </Content>
     <Content Include="modules\Typed\Views.js.map">
       <DependentUpon>Views.ts</DependentUpon>
@@ -375,9 +362,6 @@
     </Content>
     <Content Include="modules\Typed\Views.min.js.map">
       <DependentUpon>Views.js</DependentUpon>
-    </Content>
-    <Content Include="modules\Typed\Router.min.js.map">
-      <DependentUpon>Router.js</DependentUpon>
     </Content>
     <Content Include="js\libs\GL\GL.js.map">
       <DependentUpon>GL.ts</DependentUpon>
@@ -404,7 +388,6 @@
     <Content Include="modules\BookAtHome\Data.js.map">
       <DependentUpon>Data.ts</DependentUpon>
     </Content>
-    <None Include="facilities.js0" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

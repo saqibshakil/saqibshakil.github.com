@@ -1,4 +1,4 @@
-﻿/// <reference path="../../typings/app.d.ts" />
+/// <reference path="../../typings/app.d.ts" />
 /// <reference path="../../typings/backbone.d.ts" />
 /// <reference path="../../typings/require.d.ts" />
 // For each js file you need to access from typescript you need an amd-dependency
@@ -11,15 +11,16 @@
 
 var namespace = require("namespace");
 var Backbone = require("backbone");
+require("subroute");
 var Marionette = require("marionette");
 var $ = require("jquery");
 var _ = require("underscore");
-
-import Views = module("./Views");
-import Models = module("./Models");
-import GL = module("../../js/libs/GL/GL");
+ 
+import Views = require("./Views");
+import Models = require("./Models");
+import GL = require("../../js/libs/GL/GL");
 // Shorthand the application namespace
-var app: app = namespace.app;
+var app = namespace.app;
 var Typed = app.module("Typed");
 
 // Create a module to hide our private implementation details 
@@ -27,23 +28,23 @@ var Typed = app.module("Typed");
 
 export class Router extends GL.ModuleRouter {
     routes: any;
-    private Controller: Controller;
+    private Controller: Controller;  
     constructor(options?: Backbone.RouterOptions) {
         this.Controller = new Controller();
         this.routes = {
             "d/Detail/:id": "LoadDetail",
             "AddNew": "AddNew",
-            "Talha/:text": "BreakChair",
-            "*actions": "home"
+            "*actions": "home" 
         }
-
+        console.log("Type.Router.Constructer");
         super(options);
     }
-    beforeRoute(route) {
+    
+    beforeRoute(route){
         this.Controller.InitializeLayout();
+        console.log("Type.Router.BeforeRoute");
         return true;
     }
-
 
 }
 
@@ -56,7 +57,7 @@ class Controller extends GL.Controller {
         if ((this.Layout !== undefined && this.Layout.isClosed == false)) {
             return;
         }
-
+        console.log("Type.Controller.InitializeLayout");
         var view = new Views.MainView();
 
         app.content.show(view);
@@ -76,43 +77,40 @@ class Controller extends GL.Controller {
 
     LoadDetail(id) {
         var model = this.persons.get(id);
-        
+
         var viewModel = new Models.PersonViewModel(model, this);
 
         var view = new Views.PersonView({
             viewModel: viewModel
         });
 
-        this.Layout.detail.show(view);
+
+        app.modal.show(view);
 
     }
 
-    BreakChair(text) {
-        alert("Culprit is Talha" + text);
-    }
     Save(bbModel: Backbone.Model) {
         bbModel = this.persons.create(bbModel.toJSON());
         this.persons.localStorage.update(bbModel);
         this.Layout.detail.closeView();
-        app.Router.navigate("", false);
     }
 
 
     AddNew() {
         var model = new Models.Person();
         var viewModel = new Models.PersonViewModel(model, this);
-        
+
 
         var view = new Views.PersonView({
             viewModel: viewModel
         });
 
-        this.Layout.detail.show(view);
-        //app.modal.show(view);
+        //this.Layout.detail.show(view);
+        app.modal.show(view);
     }
 
     home() {
-
+        console.log("Type.Controller.Home");
     }
 
 }

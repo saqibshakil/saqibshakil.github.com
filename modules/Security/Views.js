@@ -26,7 +26,7 @@ function (GL, namespace, Backbone, Marionette, $, _, loginTemplate, noUserLogged
 
 
 
-        Security.Views.LoginView = app.GL.Views.MvvmView.extend({
+        Security.Views.LoginView = GL.Views.MvvmView.extend({
             template: loginTemplate
 
         });

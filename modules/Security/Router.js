@@ -28,8 +28,7 @@ function (namespace, Backbone, Marionette, $, _) {
                 var viewModel = new Security.ViewModels.LoginViewModel(Security.Models.loggedInUser);
                 viewModel.controller = Security.Controller;
                 var view = new Security.Views.UserLoggedInView({
-                    model: Security.Models.loggedInUser,
-                    viewModel: viewModel
+                    model: Security.Models.loggedInUser
                 });
                 app.security.show(view);
 
@@ -44,13 +43,17 @@ function (namespace, Backbone, Marionette, $, _) {
                 var moduleview = new Security.Views.Modules({ collection: modules });
                 app.modules.show(moduleview);
                 app.modal.close();
+
+                localStorage.setItem("loginToken", JSON.stringify(user));
                 if (this.returnAddress != "") {
-                    this.navigate(this.returnAddress, true);
+                    Backbone.history.navigate(this.returnAddress, true);
                 }
+
+
             },
 
             login: function () {
-                if (Security.Models.loggedInUser.get("LoginToken") != undefined && Security.Models.loggedInUser.get("LoginToken") != "")
+                if (localStorage.getItem("loginToken")!=null)
                     return;
 
                 
@@ -75,7 +78,14 @@ function (namespace, Backbone, Marionette, $, _) {
             loginwithcallback: function (route) {
                 this.returnAddress = "/" + route;
                 this.login();
+            },
+            logout: function(){
+                localStorage.removeItem("loginToken");
+                app.security.show(new Security.Views.NoUserLoggedInView());
+                app.modules.currentView.close();
+                Backbone.history.navigate("/", true);
             }
+            
 
 
         };
@@ -94,12 +104,15 @@ function (namespace, Backbone, Marionette, $, _) {
                 "login": "login",
                 "Login/*route": "loginwithcallback",
                 "login/*route": "loginwithcallback",
+                "Logout": "logout",
+                "logout": "logout",
                 "*else": "gotoHome"
 
             },
 
             before: function (route) {
                 //this.initializeLayout();
+                console.log("Security.Router.Before");
                 return true;
             },
             /*
@@ -107,7 +120,7 @@ function (namespace, Backbone, Marionette, $, _) {
             */
 
             gotoHome: function (route) {
-                alert(route);
+                
             }
 
         }, Security.Controller));

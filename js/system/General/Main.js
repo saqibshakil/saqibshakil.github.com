@@ -23,8 +23,6 @@ function (namespace, Backbone, Marionette, $, _) {
                 security._isInitialized = false;
                 security.start();
             });
-            app.GL._isInitialized = false;
-            app.GL.start();
             app.Router = new General.Router({ options: {} });
         });
 

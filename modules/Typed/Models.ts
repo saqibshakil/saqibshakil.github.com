@@ -8,7 +8,7 @@
 /// <amd-dependency path="knockout"/>
 
 var Backbone = require("backbone");
-import GL = module("../../js/libs/GL/GL");
+import GL = require("../../js/libs/GL/GL");
 
 var kb = require("knockback");
 var ko = require("knockout");
@@ -45,7 +45,7 @@ export class PersonViewModel extends GL.ViewModel {
         //Some code to post data to server and get results
         //You can access the Model as json using self.parentView.model
         this.controller.Call("Save", this.bbModel);
-    };
+    }
 
     Error = ko.observable();
 

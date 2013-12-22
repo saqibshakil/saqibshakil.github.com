@@ -30,7 +30,7 @@ function (GL, namespace, Backbone, Marionette, $, _, MainTemplate, MenuTemplate)
                 menu: "#menu",
                 content: {
                     selector: "#content",
-                    regionType: app.GL.SubTransitionRegion
+                    regionType: GL.SubTransitionRegion
                 }
             },
             onRender: function() {

@@ -1,6 +1,6 @@
-﻿// Set the require.js configuration
+// Set the require.js configuration
 require.config({
-    paths: //urlArgs: "bust=" + "V3",
+    //urlArgs: "bust=" + "V3",
     // If no baseUrl is explicitly set in the configuration, the default value
     // will be the location of the HTML page that loads require.js.
     // If a data-main attribute is used, that path will become the baseUrl.
@@ -8,13 +8,13 @@ require.config({
     // The path settings are assumed to be relative to baseUrl, unless the paths
     // setting starts with a "/" or has a URL protocol in it ("like http:").
     // In those cases, the path is determined relative to baseUrl.
-    {
-        libs: // JavaScript folders
-        "libs",
-        templates: // Templates folder
-        "../templates",
-        jquery: // Libraries
-        "libs/jquery/jquery-1.8.0",
+    paths: {
+        // JavaScript folders
+        libs: "libs",
+        // Templates folder
+        templates: "../templates",
+        // Libraries
+        jquery: "libs/jquery/jquery-1.8.0",
         underscore: "libs/underscore/underscore",
         backbone: "libs/backbone/backbone",
         subroute: "libs/backbone.subroute/backbone-subroute",
@@ -25,82 +25,63 @@ require.config({
         knockout: "libs/knockout/knockout",
         knockback: "libs/knockout/knockback",
         metrojs: "libs/MetroJS/metro",
-        gl: "libs/gl",
-        text: // Require plugins
-        "libs/require/text-2.0.3"
+        gl: "libs/GL/GL",
+        // Require plugins
+        text: "libs/require/text-2.0.3"
     },
-    shim: // Configure the dependencies and exports for older, traditional "browser globals"
+    // Configure the dependencies and exports for older, traditional "browser globals"
     // scripts that do not use define() to declare the dependencies and set a module value.
-    {
+    shim: {
         "underscore": {
             exports: "_"
         },
         "backbone": {
-            deps: // These script dependencies should be loaded before loading backbone.js
-            [
-                "underscore", 
-                "jquery"
-            ],
-            exports: // Once loaded, use the global "Backbone" as the module value.
-            "Backbone"
+            // These script dependencies should be loaded before loading backbone.js
+            deps: ["underscore", "jquery"],
+            // Once loaded, use the global "Backbone" as the module value.
+            exports: "Backbone"
         },
         "marionette": {
-            deps: [
-                "underscore", 
-                "jquery", 
-                "backbone"
-            ],
+            deps: ["underscore", "jquery", "backbone"],
             exports: "Marionette"
         },
         "subroute": {
-            deps: // These script dependencies should be loaded before loading backbone.js
-            [
-                "underscore", 
-                "jquery"
-            ]
+            // These script dependencies should be loaded before loading backbone.js
+            deps: ["underscore", "jquery"]
         },
         "routefilter": {
-            deps: [
-                "underscore", 
-                "jquery"
-            ]
+            deps: ["underscore", "jquery"]
         },
         "localstorage": {
-            deps: [
-                "backbone"
-            ]
+            deps: ["backbone"]
         },
         "bootstrap": {
-            deps: [
-                "jquery"
-            ]
+            deps: ["jquery"]
         },
         "knockout": {
             exports: "ko"
         },
         "knockback": {
-            deps: [
-                "knockout"
-            ],
+            deps: ["knockout"],
             exports: "kb"
         },
         "metrojs": {
-            deps: [
-                "jquery"
-            ]
+            deps: ["jquery"]
         }
     }
 });
+
 require([
-    "namespace", 
-    "jquery", 
-    "backbone", 
-    "gl", 
-    "system/General/Main", 
+    "namespace",
+    "jquery",
+    "backbone",
+    "gl",
+    "system/General/Main",
     "bootstrap"
 ], function (namespace, $, Backbone, GL, General) {
     // Shorthand the application namespace
     var app = namespace.app;
+
     // Regions are visual areas of the DOM, where specific views
     // will be displayed.
     app.addRegions({
@@ -108,20 +89,24 @@ require([
         security: "#top_right",
         content: {
             selector: "#app_main_content",
-            regionType: app.GL.TransitionRegion
+            regionType: GL.Regions.TransitionRegion
         }
     });
+
     // Add application initailization part.
     // Remember that the downloaded modules also can add its own initialization part
     app.addInitializer(function () {
     });
+
     // After application initialization kick off our route handlers.
     app.on("initialize:after", function () {
         app.addRegions({
-            modal: app.GL.ModalRegion
+            modal: GL.Regions.ModalRegion
         });
+
         Backbone.history.start();
     });
+
     // This is the part where the application start
     //$(document).ready(function(){
     $(function () {
@@ -129,5 +114,4 @@ require([
     });
     // this is an alias to jQuery's DOMReady function
     //        var Router = new General.Router({options: {}});
-    });
-//@ sourceMappingURL=main.js.map
+});

@@ -30,7 +30,7 @@ require.config({
         knockback: "libs/knockout/knockback",
         metrojs: "libs/MetroJS/metro",
 
-		gl: "libs/gl",
+		gl: "libs/GL/GL",
 		
 		// Require plugins
 		text: "libs/require/text-2.0.3"
@@ -103,9 +103,9 @@ function (namespace, $, Backbone, GL, General) {
         security: "#top_right",
         content: {
             selector: "#app_main_content",
-            regionType: app.GL.TransitionRegion
+            regionType: GL.Regions.TransitionRegion
         }
-   
+    
     });
     
     
@@ -119,7 +119,7 @@ function (namespace, $, Backbone, GL, General) {
     // After application initialization kick off our route handlers.
     app.on("initialize:after", ()=> {
         app.addRegions({
-            modal: app.GL.ModalRegion
+            modal: GL.Regions.ModalRegion
         });
 
         Backbone.history.start();

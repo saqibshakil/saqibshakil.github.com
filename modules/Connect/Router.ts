@@ -28,7 +28,7 @@ function (namespace, GL, Backbone, Marionette, $, _) {
             }
         };
 
-        Connect.Router =  app.GL.ModuleRouter.extend(
+        Connect.Router =  GL.ModuleRouter.extend(
         $.extend(true,
         {
 

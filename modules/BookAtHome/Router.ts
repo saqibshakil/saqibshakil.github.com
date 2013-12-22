@@ -17,16 +17,17 @@ var _ = require("underscore");
 
 //import Views = module("./Views");
 //import Models = module("./Models");
-import GL = module("../../js/libs/GL/GL");
-import Views = module("./Views");
-import Models = module("./Models");
-import Data = module("./Data");
+import GL = require("../../js/libs/GL/GL");
+import Views = require("./Views");
+import Models = require("./Models");
+import Data = require("./Data");
 // Shorthand the application namespace
-var app: app = namespace.app;
+var app = namespace.app;
 var BookAtHome = app.module("BookAtHome");
-var FacilityURL = window["cordova"] != undefined ? 'http://saqibshakil.github.io/facilities.js?' : "/facilities.js?";
+var FacilityURL = 'http://saqibshakil.github.io/facilities.json?';
 // Create a module to hide our private implementation details 
-
+if (BookAtHome.Rnd == undefined)
+    BookAtHome.Rnd = Math.random();
 
 export class Router extends GL.ModuleRouter {
     routes: any;
@@ -62,28 +63,35 @@ class Controller extends GL.Controller {
         try {
             if (localStorage.getItem("Facilities") != undefined)
                 Facilities = JSON.parse(localStorage.getItem("Facilities"));
+            console.log("Facilities loaded from localstorage")
         }
         catch (e)
         {
             Facilities = Data.Facilities;
+            console.log("Facilities not loaded from localstorage")
         }
         Data.Facilities = Facilities;
     }
 
 
     home() {
-        $.getJSON(FacilityURL + Math.random()*1000)
+        console.log("Service Called");
+        $.getJSON(FacilityURL + BookAtHome.Rnd *1000)
         .done((data) => {
+            console.log("Success");
             this.Items = new Models.Facilities(data.Facilities);
             localStorage.setItem("Facilities", JSON.stringify(data.Facilities));
+            console.log("LocalStorage Updated");
         })
         .fail(() => {
             this.Items = new Models.Facilities(Data.Facilities);
+            console.log("Failure");
         }).always(() => {
             var grid = new Views.GridView({
                 collection: this.Items
             });
             this.Layout.detail.show(grid);
+            console.log("Rendered");
         });
         
     }

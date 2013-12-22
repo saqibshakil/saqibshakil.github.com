@@ -19,7 +19,7 @@ var _ = require("underscore");
 var MainTemplate = require("text!./templates/Main.htm");
 var Templates = require("text!./templates/templates.htm");
 
-import GL = module("../../js/libs/GL/GL");
+import GL = require("../../js/libs/GL/GL");
 
 
 export class MainView extends Marionette.Layout {
@@ -43,7 +43,7 @@ export class MainView extends Marionette.Layout {
 }
 
 export class RowView extends GL.Views.ItemView {
-    DisplayAsGrid: bool;
+    DisplayAsGrid: Boolean;
     events: any;
     constructor(options?: any) {
         this.modelEvents = {
@@ -62,7 +62,7 @@ export class RowView extends GL.Views.ItemView {
 }
 
 export class ItemView extends GL.Views.ItemView {
-    DisplayAsGrid: bool;
+    DisplayAsGrid: Boolean;
     events: any;
     constructor(options?: any) {
         this.modelEvents = {
@@ -83,7 +83,7 @@ export class ItemView extends GL.Views.ItemView {
 }
 
 export class TableView extends Marionette.CompositeView {
-    DisplayAsGrid: bool;
+    DisplayAsGrid: Boolean;
     events: any;
     constructor(options?: any) {
         this.DisplayAsGrid = true;

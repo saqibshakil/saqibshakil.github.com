@@ -5,11 +5,12 @@
     "marionette",
 	"jquery",
 	"underscore",
+    "gl",
     "subroute",
     "routefilter"
 ],
 
-function (namespace,  Backbone, Marionette, $, _) {
+function (namespace,  Backbone, Marionette, $, _, GL) {
 
     // Shorthand the application namespace
     var app = namespace.app;
@@ -26,7 +27,7 @@ function (namespace,  Backbone, Marionette, $, _) {
             }
         };
 
-        GMC.Router = app.GL.ModuleRouter.extend(
+        GMC.Router = GL.ModuleRouter.extend(
         $.extend(true,
         {
 

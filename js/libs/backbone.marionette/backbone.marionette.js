@@ -869,7 +869,7 @@ var Marionette = (function(global, Backbone, _){
                 this.close();
             }
 
-            view.render();
+            view.render(); 
 
             if (isDifferentView || isViewClosed) {
                 this.open(view);

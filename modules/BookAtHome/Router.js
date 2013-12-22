@@ -31,8 +31,11 @@ define(["require", "exports", "../../js/libs/GL/GL", "./Views", "./Models", "./D
     // Shorthand the application namespace
     var app = namespace.app;
     var BookAtHome = app.module("BookAtHome");
-    var FacilityURL = window["cordova"] != undefined ? 'http://saqibshakil.github.io/facilities.js?' : "/facilities.js?";
+    var FacilityURL = 'http://saqibshakil.github.io/facilities.json?';
     // Create a module to hide our private implementation details
+    if(BookAtHome.Rnd == undefined) {
+        BookAtHome.Rnd = Math.random();
+    }
     var Router = (function (_super) {
         __extends(Router, _super);
         function Router(options) {
@@ -66,23 +69,30 @@ define(["require", "exports", "../../js/libs/GL/GL", "./Views", "./Models", "./D
                 if(localStorage.getItem("Facilities") != undefined) {
                     Facilities = JSON.parse(localStorage.getItem("Facilities"));
                 }
+                console.log("Facilities loaded from localstorage");
             } catch (e) {
                 Facilities = Data.Facilities;
+                console.log("Facilities not loaded from localstorage");
             }
             Data.Facilities = Facilities;
         };
         Controller.prototype.home = function () {
             var _this = this;
-            $.getJSON(FacilityURL + Math.random() * 1000).done(function (data) {
+            console.log("Service Called");
+            $.getJSON(FacilityURL + BookAtHome.Rnd * 1000).done(function (data) {
+                console.log("Success");
                 _this.Items = new Models.Facilities(data.Facilities);
                 localStorage.setItem("Facilities", JSON.stringify(data.Facilities));
+                console.log("LocalStorage Updated");
             }).fail(function () {
                 _this.Items = new Models.Facilities(Data.Facilities);
+                console.log("Failure");
             }).always(function () {
                 var grid = new Views.GridView({
                     collection: _this.Items
                 });
                 _this.Layout.detail.show(grid);
+                console.log("Rendered");
             });
         };
         return Controller;

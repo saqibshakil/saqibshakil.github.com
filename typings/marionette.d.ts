@@ -199,7 +199,7 @@ declare module Marionette {
         configureTriggers(): any;
         delegateEvents(events?: any): any;
         undelegateEvents();
-        isClosed: bool;
+        isClosed: Boolean;
         close();
         bindUIElements();
         unbindUIElements();
@@ -212,7 +212,7 @@ declare module Marionette {
         constructor(options?: any);
         modelEvents: any;
         ui: any;
-        isClosed: bool;
+        isClosed: Boolean;
         serializeData(): any;
         render(): ItemView;
         close();
